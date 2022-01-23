@@ -41,7 +41,7 @@
 .navbar{
   display: flex;
   align-items: center;
-  height: 60px;
+  height: 50px;
   width: 100%;
   background: #0d253f;
   justify-content: space-between;
@@ -59,12 +59,12 @@
 }
 .right{
   display: flex;
-  margin-right: 100px;
+  margin-right: 200px;
   align-items: center;
 }
 .left{
   display: flex;
-  margin-left: 100px;
+  margin-left: 200px;
 
 }
 .dropdown img{
