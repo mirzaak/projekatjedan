@@ -5,10 +5,10 @@
 <div class="dropdown">
 <router-link to="/"><a href="#">Movies</a><img src="./assets/Vector.svg" alt="logo"></router-link>
 <div class="dropdowncontent">
-<router-link to="/"><a href="#">Popular</a></router-link>
-<router-link to="/"><a href="#">Now Playing</a></router-link>
-<router-link to="/"><a href="#">Upcoming</a></router-link>
-<router-link to="/"><a href="#">Top Rated</a></router-link>
+<router-link to="/popular"><a href="#">Popular</a></router-link>
+<router-link to="/nowplaying"><a href="#">Now Playing</a></router-link>
+<router-link to="/upcoming"><a href="#">Upcoming</a></router-link>
+<router-link to="/toprated"><a href="#">Top Rated</a></router-link>
 </div>
 </div>
 <div class="dropdown">
@@ -97,5 +97,6 @@
   color: #0d253f;
   margin-top: 5px;
 }
+
 
 </style>
