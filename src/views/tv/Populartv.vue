@@ -1,6 +1,6 @@
 <template>
 <div class="naslov">
-    <h1>Upcoming Movies</h1>
+    <h1>Popular TV Shows</h1>
 </div>
 <div class="all">
   <div class="left">
@@ -30,8 +30,8 @@
     <div class="card" v-for="podatak in podaci.results" :key="podatak">
         <img :src=" slikaurl + podatak.poster_path" alt="">
         <div class="info">
-            <h3>{{ podatak.original_title}}</h3>
-            <h3>{{ podatak.release_date}}</h3>
+            <h3>{{ podatak.original_name}}</h3>
+            <h3>{{ podatak.first_air_date}}</h3>
             <p></p>
         </div>
     </div>
@@ -48,7 +48,7 @@ export default {
         }
     },
 mounted(){
-fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
+fetch('https://api.themoviedb.org/3/tv/popular?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
 .then(response => response.json())
 .then(data => this.podaci = data)
 .then(data => console.log(this.podaci))
@@ -82,12 +82,12 @@ fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=0b5e8ce7494ae54d6c643
     margin-left: 100px;
     margin-right: 0;
     overflow: hidden;
-
 }
 .card{
     display: flex;
     flex-direction: column;
     margin: 20px;
+    margin-top: 0;
 }
 .info{
     display: flex;
@@ -100,7 +100,6 @@ fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=0b5e8ce7494ae54d6c643
     display:flex;
     flex-direction: column;
     width: 300px;
-
     margin: 0;
 }
 .left button{

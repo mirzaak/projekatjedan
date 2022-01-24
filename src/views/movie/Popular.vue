@@ -106,7 +106,7 @@ fetch('https://api.themoviedb.org/3/movie/popular?api_key=0b5e8ce7494ae54d6c643a
 .left button{
     width: 200px;
     height: 50px;
-    margin-top: 0;
+    margin-top: 20px;
     margin-bottom: 0;
     border-radius: 50px;
     cursor: pointer;
@@ -118,12 +118,10 @@ fetch('https://api.themoviedb.org/3/movie/popular?api_key=0b5e8ce7494ae54d6c643a
     width: 200px;
     height: 40px;
     background: white;
-    margin-top: 0;
-    margin-bottom: 0;
     border-radius: 10px;
     cursor: pointer;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 40px;
+    margin-bottom: 0px;
     border: 1px solid black;
     justify-content: space-between;
 }

@@ -3,8 +3,8 @@
 <div class="top">
     <h1>Popular</h1>
     <div class="pill">
-        <div class="jedan"><a href="#">Movies</a></div>
-        <div class="dva"><a href="#">TV Shows</a></div>
+        <div class="jedan"><router-link to="/popular"><a href="#">Movies</a></router-link></div>
+        <div class="dva"><router-link to="/populartv"><a href="#">TV Shows</a></router-link></div>
     </div>
 </div>
 <div class="main">
@@ -23,8 +23,8 @@
 <div class="top">
     <h1>Now Playing</h1>
     <div class="pill">
-        <div class="jedan"><a href="#">Movies</a></div>
-        <div class="dva"><a href="#">TV Shows</a></div>
+        <div class="jedan"><router-link to="/nowplaying"><a href="#">Movies</a></router-link></div>
+        <div class="dva"><router-link to="/nowplayingtv"><a href="#">TV Shows</a></router-link></div>
     </div>
 </div>
 <div class="main">
@@ -43,8 +43,8 @@
 <div class="top">
     <h1>Upcoming</h1>
     <div class="pill">
-        <div class="jedan"><a href="#">Movies</a></div>
-        <div class="dva"><a href="#">TV Shows</a></div>
+        <div class="jedan"><router-link to="/upcoming"><a href="#">Movies</a></router-link></div>
+        <div class="dva"><router-link to="/ontheairtv"><a href="#">TV Shows</a></router-link></div>
     </div>
 </div>
 <div class="main">
@@ -63,8 +63,8 @@
 <div class="top">
     <h1>Top Rated</h1>
     <div class="pill">
-        <div class="jedan"><a href="#">Movies</a></div>
-        <div class="dva"><a href="#">TV Shows</a></div>
+        <div class="jedan"><router-link to="/toprated"><a href="#">Movies</a></router-link></div>
+        <div class="dva"><router-link to="/topratedtv"><a href="#">TV Shows</a></router-link></div>
     </div>
 </div>
 <div class="main">
@@ -163,7 +163,7 @@ fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d6c64
 .pill a{
     text-decoration: none;
     margin: 10px;
-    margin-right: 20px;
+    margin-right: 10px;
 }
 .jedan{
     background: #0d253f;
@@ -178,6 +178,12 @@ fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d6c64
     font-size: 20px;
     margin-right: 20px;
 }
+.dva a{
+    padding: 10px;
+    margin-right: 20px;
+    margin-left: 5px;
+}
+
 
 
 

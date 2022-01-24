@@ -14,10 +14,10 @@
 <div class="dropdown">
 <router-link to="/"><a href="#">TV Shows</a><img src="./assets/Vector.svg" alt="logo"></router-link>
 <div class="dropdowncontent">
-<router-link to="/"><a href="#">Popular</a></router-link>
-<router-link to="/"><a href="#">Airing Today</a></router-link>
-<router-link to="/"><a href="#">On TV</a></router-link>
-<router-link to="/"><a href="#">Top Rated</a></router-link>
+<router-link to="/populartv"><a href="#">Popular</a></router-link>
+<router-link to="/nowplayingtv"><a href="#">Airing Today</a></router-link>
+<router-link to="/ontheairtv"><a href="#">On TV</a></router-link>
+<router-link to="/topratedtv"><a href="#">Top Rated</a></router-link>
 </div>
 <router-link to="/"><a href="#">People</a></router-link>
 </div>
