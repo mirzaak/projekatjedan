@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
+import HomeLoged from '../views/Home.vue'
 import Popular from '../views/movie/Popular.vue'
 import Nowplaying from '../views/movie/Nowplaying.vue'
 import Toprated from '../views/movie/Toprated.vue'
@@ -8,12 +9,18 @@ import Populartv from '../views/tv/Populartv.vue'
 import Nowplayingtv from '../views/tv/Nowplayingtv.vue'
 import Ontheairtv from '../views/tv/Ontheairtv.vue'
 import Topratedtv from '../views/tv/Topratedtv.vue'
+import Login from '../views/Login.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/:sessionid',
+    name: 'HomeLoged',
+    component: HomeLoged
   },
   {
     path: '/popular',
@@ -54,6 +61,11 @@ const routes = [
     path: '/topratedtv',
     name: 'Topratedtv',
     component: Topratedtv
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   
 ]

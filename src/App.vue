@@ -3,7 +3,7 @@
 <div class="left">
 <router-link to="/"><img src=".\assets\logo.svg" alt="#"></router-link>
 <div class="dropdown">
-<router-link to="/"><a href="#">Movies</a><img src="./assets/Vector.svg" alt="logo"></router-link>
+<router-link to="/popular"><a href="#">Movies</a><img src="./assets/Vector.svg" alt="logo"></router-link>
 <div class="dropdowncontent">
 <router-link to="/popular"><a href="#">Popular</a></router-link>
 <router-link to="/nowplaying"><a href="#">Now Playing</a></router-link>
@@ -12,7 +12,7 @@
 </div>
 </div>
 <div class="dropdown">
-<router-link to="/"><a href="#">TV Shows</a><img src="./assets/Vector.svg" alt="logo"></router-link>
+<router-link to="/populartv"><a href="#">TV Shows</a><img src="./assets/Vector.svg" alt="logo"></router-link>
 <div class="dropdowncontent">
 <router-link to="/populartv"><a href="#">Popular</a></router-link>
 <router-link to="/nowplayingtv"><a href="#">Airing Today</a></router-link>
@@ -24,7 +24,7 @@
 </div>
 
 <div class="right">
-<router-link to="/"><a href="#">Login</a></router-link>
+<router-link to="/login"><a href="#">Login</a></router-link>
 <router-link to="/"><a href="#">Join TMDB</a></router-link>
 <router-link to="/"><img src="./assets/search.svg" alt=""></router-link>
 </div>
