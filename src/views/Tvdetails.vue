@@ -12,13 +12,13 @@
 <div class="ispred">
 <img :src=" slikaurl + podaci.poster_path" alt="">
 <div class="info" v-if="podaci">
-<h1>{{ podaci.original_title }}</h1>
+<h1>{{ podaci.original_name }}</h1>
 <div class="drugired">
-<p>{{ podaci.release_date }}</p>
+<p>{{ podaci.first_air_date }}</p>
 <div v-for="zanr in podaci.genres" :key="zanr">
 <p>{{ zanr.name }}</p>
 </div>
-<p>{{ podaci.runtime }}min</p>
+<p>{{ podaci.episode_run_time[0]}}min</p>
 </div>
 
 
@@ -42,12 +42,14 @@
 <p>Overview</p>
 <p>{{podaci.overview}}</p>
 <div class="bitniglumci">
+<div v-if="podaci.credits.cast.known_for_department">
 <a href="#">{{ podaci.credits.cast[0].name }}</a>
 <p>{{ podaci.credits.cast[2].known_for_department }}</p>
 <a href="#">{{ podaci.credits.cast[1].name }}</a>
 <p>{{ podaci.credits.cast[1].known_for_department }}</p>
 <a href="#">{{ podaci.credits.cast[2].name }}</a>
 <p>{{ podaci.credits.cast[3].known_for_department }}</p>
+</div>
 </div>
 
 </div>
@@ -69,6 +71,7 @@
 <div class="infoglumci">
 <h1>{{ glumac.original_name }}</h1>
 <p>{{ glumac.known_for_department }}</p>
+
 </div>
 </div>
 </div>
@@ -77,8 +80,8 @@
 <a href="#">Full Cast and Crew</a>
 <img src="../assets/Rectangle.svg" alt="">
 <a href="#">Reviews</a>
-<div class="reviews" v-if="podaci">
-<div class="prvired" v-if="podaci">
+<div class="reviews">
+<div class="prvired">
 <h1>A review by {{ podaci.reviews.results[0].author_details.username}}</h1>
 <div class="rating" v-if="podaci"><img src="../assets/goldenstar.svg" alt=""><p>{{ podaci.reviews.results[0].author_details.rating }}</p></div>
 </div>
@@ -127,7 +130,7 @@ export default {
         }
     },
 mounted(){
-    fetch('https://api.themoviedb.org/3/movie/' + this.id + '?api_key=0b5e8ce7494ae54d6c643adf4db40da7&append_to_response=credits,keywords,reviews')
+    fetch('https://api.themoviedb.org/3/tv/' + this.id + '?api_key=0b5e8ce7494ae54d6c643adf4db40da7&append_to_response=credits,keywords,reviews')
     .then(res => res.json())
     .then(data => this.podaci = data)
     .then(data => console.log(this.podaci))

@@ -28,7 +28,7 @@
   </div>
   <div class="right" v-if="podaci">
     <div class="card" v-for="podatak in podaci.results" :key="podatak">
-        <img :src=" slikaurl + podatak.poster_path" alt="">
+        <img :src=" slikaurl + podatak.poster_path" alt="" @click="toMovie(podatak.id)">
         <div class="info">
             <h3>{{ podatak.original_name}}</h3>
             <h3>{{ podatak.first_air_date}}</h3>
@@ -41,6 +41,11 @@
 
 <script>
 export default {
+    methods:{
+        toMovie(id){
+            window.location.href = 'http://localhost:8080/tv/' + id 
+        }
+    },
     data(){
         return{
             podaci:null,
@@ -73,6 +78,7 @@ fetch('https://api.themoviedb.org/3/tv/top_rated?api_key=0b5e8ce7494ae54d6c643ad
 }
 .card img{
     width: 150px;
+    cursor: pointer;
 }
 
 .right{
