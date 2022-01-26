@@ -10,6 +10,7 @@ import Nowplayingtv from '../views/tv/Nowplayingtv.vue'
 import Ontheairtv from '../views/tv/Ontheairtv.vue'
 import Topratedtv from '../views/tv/Topratedtv.vue'
 import Login from '../views/Login.vue'
+import Moviedetails from '../views/Moviedetails.vue'
 
 const routes = [
   {
@@ -66,6 +67,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/movie/:id',
+    name: 'Moviedetails',
+    component: Moviedetails
   },
   
 ]

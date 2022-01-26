@@ -25,7 +25,7 @@
 
 <div class="right">
 <router-link to="/login"><a href="#">Login</a></router-link>
-<router-link to="/"><a href="#">Join TMDB</a></router-link>
+<router-link to="/login"><a href="#">Join TMDB</a></router-link>
 <router-link to="/"><img src="./assets/search.svg" alt=""></router-link>
 </div>
 </div>

@@ -9,7 +9,7 @@
 </div>
 <div class="main">
 <div v-for="film in popular.results" :key="film">
-        <img :src=" slikaurl + film.poster_path" alt="">
+        <img :src=" slikaurl + film.poster_path" alt="" @click="toMovie(film.id)">
         <div class="info">
         <h3>{{ film.original_title}}</h3>
         <p>{{ film.release_date}}</p>
@@ -29,7 +29,7 @@
 </div>
 <div class="main">
 <div v-for="film in now_playing.results" :key="film">
-        <img :src=" slikaurl + film.poster_path" alt="">
+        <img :src=" slikaurl + film.poster_path" alt="" @click="toMovie(film.id)">
         <div class="info">
         <h3>{{ film.original_title}}</h3>
         <p>{{ film.release_date}}</p>
@@ -49,7 +49,7 @@
 </div>
 <div class="main">
 <div v-for="film in upcoming.results" :key="film">
-        <img :src=" slikaurl + film.poster_path" alt="">
+        <img :src=" slikaurl + film.poster_path" alt="" @click="toMovie(film.id)">
         <div class="info">
         <h3>{{ film.original_title}}</h3>
         <p>{{ film.release_date}}</p>
@@ -69,7 +69,7 @@
 </div>
 <div class="main">
 <div v-for="film in top_rated.results" :key="film">
-        <img :src=" slikaurl + film.poster_path" alt="">
+        <img :src=" slikaurl + film.poster_path" alt="" @click="toMovie(film.id)">
         <div class="info">
         <h3>{{ film.original_title}}</h3>
         <p>{{ film.release_date}}</p>
@@ -81,8 +81,14 @@
 
 <script>
 export default {
+    methods:{
+        toMovie(id){
+            window.location.href = 'http://localhost:8080/movie/' + id 
+        }
+    },
     data(){
         return{
+            movieid:[],
             popular:null,
             nowplaying:null,
             upcoming:null,
@@ -124,7 +130,7 @@ fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d6c64
 .frame{
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 1340px;
     margin: auto;
     margin-top: 50px;
 }
@@ -139,6 +145,7 @@ fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d6c64
 .main img{
    width: 150px;
    margin-right: 19px;
+   cursor: pointer;
 }
 .info{
     width: 150px;
@@ -183,7 +190,6 @@ fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d6c64
     margin-right: 20px;
     margin-left: 5px;
 }
-
 
 
 
