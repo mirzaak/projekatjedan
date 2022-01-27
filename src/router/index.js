@@ -12,6 +12,7 @@ import Topratedtv from '../views/tv/Topratedtv.vue'
 import Login from '../views/Login.vue'
 import Moviedetails from '../views/Moviedetails.vue'
 import Tvdetails from '../views/Tvdetails.vue'
+import Seasons from '../views/Seasons.vue'
 
 const routes = [
   {
@@ -78,6 +79,11 @@ const routes = [
     path: '/tv/:id',
     name: 'Tvdetails',
     component: Tvdetails
+  },
+  {
+    path: '/tv/:id/seasons',
+    name: 'Seasons',
+    component: Seasons
   },
   
 ]

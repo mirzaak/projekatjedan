@@ -83,7 +83,7 @@
 export default {
     methods:{
         toMovie(id){
-            window.location.href = 'http://localhost:8080/movie/' + id 
+            this.$router.push({ name: 'Moviedetails', params: { id: id }}) 
         }
     },
     data(){

@@ -154,10 +154,12 @@ mounted(){
     height: 500px;
     background: lightgray;
     overflow: hidden;
+
 }
 .iza img{
     width: 100%;
     filter: brightness(15%);
+
 }
 .iza{
     position: relative;
@@ -399,7 +401,7 @@ mounted(){
 .rating{
     align-items: center;
     height: 30px;
-    width: 50px;
+    width: 60px;
     display: flex;
     background: black;
     position: relative;

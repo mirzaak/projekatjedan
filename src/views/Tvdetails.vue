@@ -79,11 +79,26 @@
 <div class="drugidio" v-if="podaci.reviews.results[0]">
 <a href="#">Full Cast and Crew</a>
 <img src="../assets/Rectangle.svg" alt="">
+
+<div class="seasons">
+<h1>Last Season</h1>
+<div class="sezona">
+<img :src=" slikaurl + podaci.seasons[0].poster_path" alt="" @click="toSeason(podaci.id)">
+<div class="detalji">
+    <h1  @click="toSeason(podaci.id)">{{podaci.seasons[0].name}}</h1>
+    <p  @click="toSeason(podaci.id)">{{ podaci.seasons[0].first_air_date}}</p>
+    <p  @click="toSeason(podaci.id)">{{ podaci.seasons[0].episode_count }} Episodes</p>
+    <p  @click="toSeason(podaci.id)">{{ podaci.seasons[0].overview }}</p>
+</div>
+</div>
+<a href="#"  @click="toSeason(podaci.id)">View All Seasons</a>
+</div>
+
 <a href="#">Reviews</a>
 <div class="reviews">
 <div class="prvired">
 <h1>A review by {{ podaci.reviews.results[0].author_details.username}}</h1>
-<div class="rating" v-if="podaci"><img src="../assets/goldenstar.svg" alt=""><p>{{ podaci.reviews.results[0].author_details.rating }}</p></div>
+<div class="rating" v-if="podaci.reviews.results[0].author_details.rating"><img src="../assets/goldenstar.svg" alt=""><p>{{ podaci.reviews.results[0].author_details.rating }}</p></div>
 </div>
 <p>Written by {{ podaci.reviews.results[0].author }} {{ podaci.reviews.results[0].created_at }}</p>
 <p>{{ podaci.reviews.results[0].content }}</p>
@@ -122,6 +137,11 @@
 
 <script>
 export default {
+    methods:{
+        toSeason(id){
+            this.$router.push({ name: 'Seasons', params: { id: id }}) 
+        }
+    },
     data(){
         return{
             podaci:null,
@@ -262,7 +282,7 @@ mounted(){
     width: 1500px;
 
     margin-top: 20px;
-    height: 1000px;
+    height: 1300px;
 }
 .left{
     display: flex;
@@ -423,4 +443,25 @@ mounted(){
     color: white;
     margin-left: 0px;
 }
+.seasons{
+    height: 300px;
+
+    height: 330px;
+}
+.sezona{
+
+    display: flex;
+    align-items: center;
+}
+.sezona img{
+    height: 225px;
+    width: 150px;
+    cursor: pointer;
+}
+.detalji{
+    cursor: pointer;
+    color:black;
+    margin-left: 20px;
+}
+
 </style>

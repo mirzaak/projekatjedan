@@ -85,7 +85,6 @@
   border: 1px solid lightgray;
   border-radius: 5px;
   background: white;
-  position: absolute;
 }
 .dropdowncontent a{
   padding-left: 10px;

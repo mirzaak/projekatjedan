@@ -43,7 +43,7 @@
 export default {
     methods:{
         toMovie(id){
-            window.location.href = 'http://localhost:8080/tv/' + id 
+            this.$router.push({ name: 'Tvdetails', params: { id: id }})
         }
     },
     data(){
