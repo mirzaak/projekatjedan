@@ -8,7 +8,7 @@
         <h1>Search Results</h1>
     </div>
     <div >
-    <div class="kategorija"><a href="#">Movies</a><p>{{podaci.results.length}}</p></div>
+    <div class="kategorija"><a href="#">Movies</a></div>
     <div class="kategorija"><a href="#">TV Shows</a><p></p></div>
     <div class="kategorija"><a href="#">People</a><p></p></div>
     <div class="kategorija"><a href="#">Collections</a><p></p></div>
@@ -22,12 +22,17 @@
             <div class="main">
                 <img :src=" slikaurl + podatak.poster_path" alt="">
                 <div class="info">
+                    <div class="prvired">
                     <h1>{{ podatak.original_title }}{{ podatak.original_name }}</h1>
+                    <button @click="wlist(podatak.id)">Watchlist</button>
+                    <button @click="favorite(podatak.id)">Favorite</button>
+                    </div>
                     <p>{{ podatak.release_date }}{{ podatak.first_air_date }}</p>
                     <div class="overview">
                     <p>{{ podatak.overview }}</p>
                 </div>
                 </div>
+
             </div>
         </div>
 
@@ -53,8 +58,49 @@ methods:{
     .then(data=>console.log(this.podaci))
     .then(this.$router.push({ name: 'Searched', params:{query:this.query}}))
         
-    }
+    },
+    wlist(id){
+   fetch('https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=33522d9c0079fa05be09899969ee757f36395862', {
+  method: 'POST', 
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+  "media_type": "movie",
+  "media_id": id,
+  "watchlist": true
+}),
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+  },
+  favorite(id){
+   fetch('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=12f9c5163eb1e5d613bb89b717244a9322e8f8da', {
+  method: 'POST', 
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+  "media_type": "movie",
+  "media_id": id,
+  "favorite": true
+}),
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+  },
 }
+
 }
 </script>
 
@@ -164,5 +210,14 @@ methods:{
     width: 950px;
     height: 80px;
     overflow: hidden;
+}
+.prvired{
+    display: flex;
+    flex-direction: row;
+}
+.prvired button{
+    height: 30px;
+    padding: 4px;
+    margin-left: 10px;
 }
 </style>

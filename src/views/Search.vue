@@ -7,13 +7,13 @@
     <div class="naslov">
         <h1>Search Results</h1>
     </div>
-    <div class="kategorija"><a href="#">Movies</a><p>asdasd</p></div>
-    <div class="kategorija"><a href="#">TV Shows</a><p>1</p></div>
-    <div class="kategorija"><a href="#">People</a><p>1</p></div>
-    <div class="kategorija"><a href="#">Collections</a><p>1</p></div>
-    <div class="kategorija"><a href="#">Companies</a><p>1</p></div>
-    <div class="kategorija"><a href="#">Keywords</a><p>1</p></div>
-    <div class="kategorija"><a href="#">Networks</a><p>1</p></div>
+    <div class="kategorija"><a href="#">Movies</a></div>
+    <div class="kategorija"><a href="#">TV Shows</a></div>
+    <div class="kategorija"><a href="#">People</a></div>
+    <div class="kategorija"><a href="#">Collections</a></div>
+    <div class="kategorija"><a href="#">Companies</a></div>
+    <div class="kategorija"><a href="#">Keywords</a></div>
+    <div class="kategorija"><a href="#">Networks</a></div>
     </div>
     <div class="right">
         <p>There are no movies that matched your query.</p>
@@ -125,8 +125,5 @@ methods:{
     align-self: flex-start;
     margin-left: 20px;
     margin-top: 20px;
-}
-.main img{
-width: 100px;
 }
 </style>
