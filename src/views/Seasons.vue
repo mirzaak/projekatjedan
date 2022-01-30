@@ -77,7 +77,6 @@ mounted(){
     display: flex;
     flex-direction: column;
     width:1500px;
-    height: 2000px;
     margin: auto;
 
 }

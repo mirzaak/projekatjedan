@@ -13,6 +13,8 @@ import Login from '../views/Login.vue'
 import Moviedetails from '../views/Moviedetails.vue'
 import Tvdetails from '../views/Tvdetails.vue'
 import Seasons from '../views/Seasons.vue'
+import Episodes from '../views/Episodes.vue'
+
 
 const routes = [
   {
@@ -84,6 +86,11 @@ const routes = [
     path: '/tv/:id/seasons',
     name: 'Seasons',
     component: Seasons
+  },
+  {
+    path: '/tv/:id/seasons/:sn',
+    name: 'Episodes',
+    component: Episodes
   },
   
 ]
