@@ -14,6 +14,8 @@ import Moviedetails from '../views/Moviedetails.vue'
 import Tvdetails from '../views/Tvdetails.vue'
 import Seasons from '../views/Seasons.vue'
 import Episodes from '../views/Episodes.vue'
+import Search from '../views/Search.vue'
+import Searched from '../views/Searched.vue'
 
 
 const routes = [
@@ -91,6 +93,16 @@ const routes = [
     path: '/tv/:id/seasons/:sn',
     name: 'Episodes',
     component: Episodes
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search
+  },
+  {
+    path: '/search/:query',
+    name: 'Searched',
+    component: Searched
   },
   
 ]

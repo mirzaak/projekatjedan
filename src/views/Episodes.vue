@@ -49,7 +49,8 @@
 <script>
 export default {
   methods:{
-    expand(){
+    expand(index){
+      console.log(index)
   var expand = document.getElementsByClassName("expand");
   var i;
   for (i = 0; i < expand.length; i++) {
