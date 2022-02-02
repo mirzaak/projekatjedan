@@ -10,12 +10,17 @@ import Nowplayingtv from '../views/tv/Nowplayingtv.vue'
 import Ontheairtv from '../views/tv/Ontheairtv.vue'
 import Topratedtv from '../views/tv/Topratedtv.vue'
 import Login from '../views/Login.vue'
+import Loged from '../views/Loged.vue'
 import Moviedetails from '../views/Moviedetails.vue'
 import Tvdetails from '../views/Tvdetails.vue'
 import Seasons from '../views/Seasons.vue'
 import Episodes from '../views/Episodes.vue'
 import Search from '../views/Search.vue'
 import Searched from '../views/Searched.vue'
+import Watchlist from '../views/Watchlist.vue'
+import Watchlisttv from '../views/Watchlisttv.vue'
+import Ratings from '../views/Ratings.vue'
+import Ratingstv from '../views/Ratingstv.vue'
 
 
 const routes = [
@@ -75,6 +80,11 @@ const routes = [
     component: Login
   },
   {
+    path: '/loged/:sessionid',
+    name: 'Loged',
+    component: Loged
+  },
+  {
     path: '/movie/:id',
     name: 'Moviedetails',
     component: Moviedetails
@@ -103,6 +113,26 @@ const routes = [
     path: '/search/:query',
     name: 'Searched',
     component: Searched
+  },
+  {
+    path: '/watchlist',
+    name: 'Watchlist',
+    component: Watchlist
+  },
+  {
+    path: '/watchlist/tv',
+    name: 'Watchlisttv',
+    component: Watchlisttv
+  },
+  {
+    path: '/ratings',
+    name: 'Ratings',
+    component: Ratings
+  },
+  {
+    path: '/ratings/tv',
+    name: 'Ratingstv',
+    component: Ratingstv
   },
   
 ]

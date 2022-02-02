@@ -1,4 +1,5 @@
 <template>
+<Navbar />
 <div class="naslov">
     <h1>Now Playing Movies</h1>
 </div>
@@ -40,7 +41,9 @@
 </template>
 
 <script>
+import Navbar from '../Navbar.vue'
 export default {
+    components:{Navbar},
     data(){
         return{
             podaci:null,

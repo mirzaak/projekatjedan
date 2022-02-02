@@ -1,6 +1,7 @@
 <template>
+<Navbar />
 <div class="searchbar">
-<input type="text" placeholder="Search..." name="" id="" @keyup.enter="submit" v-model="query">
+<input type="text" placeholder="Search..." name="" id="" @keyup.enter="submit" v-model="query" onchange='saveValue(this)'>
 </div>
 <div class="all" v-if="podaci">
     <div class="left">
@@ -8,7 +9,7 @@
         <h1>Search Results</h1>
     </div>
     <div >
-    <div class="kategorija"><a href="#">Movies</a></div>
+    <div class="kategorija"><a href="#">Movies</a><p>{{ podaci.results.length}}</p></div>
     <div class="kategorija"><a href="#">TV Shows</a><p></p></div>
     <div class="kategorija"><a href="#">People</a><p></p></div>
     <div class="kategorija"><a href="#">Collections</a><p></p></div>
@@ -42,17 +43,26 @@
 </template>
 
 <script>
+import Navbar from './Navbar.vue'
 export default {
+    components:{Navbar},
+mounted(){
+    fetch('https://api.themoviedb.org/3/search/movie?api_key=0b5e8ce7494ae54d6c643adf4db40da7&query=' + this.query)
+    .then(res => res.json())
+    .then(data=>this.podaci = data)
+    .then(data=>console.log(this.podaci))
+    .then(this.$router.push({ name: 'Searched', params:{query:this.query}}))
+},
 data(){
     return{
-        query:null,
+        query:this.$route.params.query,
         podaci:null,
         slikaurl: 'https://image.tmdb.org/t/p/original/',
     }
 },
 methods:{
     submit(){
-    fetch('https://api.themoviedb.org/3/search/multi?api_key=0b5e8ce7494ae54d6c643adf4db40da7&query=' + this.query)
+    fetch('https://api.themoviedb.org/3/search/movie?api_key=0b5e8ce7494ae54d6c643adf4db40da7&query=' + this.query)
     .then(res => res.json())
     .then(data=>this.podaci = data)
     .then(data=>console.log(this.podaci))

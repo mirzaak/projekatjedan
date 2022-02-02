@@ -1,4 +1,5 @@
 <template>
+<Navbar />
 <div class="all">
     <h1>Login to your account</h1>
     <p>In order to use the editing and rating capabilities of TMDB, as well as get personal recommendations you will need to login to your account. If you do not have an account, registering for an account is free and simple.</p>
@@ -8,7 +9,7 @@
     <input type="text"  v-model="username">
 
     <label for="password">Password</label>
-    <input type="password"  v-model="password">
+    <input type="password"  v-model="password" @keyup.enter="submit">
 
     <div class="loginn">
     <button @click="submit">Login</button>
@@ -21,7 +22,9 @@
 <script>
 import useVuelidate from '@vuelidate/core'
 import { required} from '@vuelidate/validators'
+import Navbar from './Navbar.vue'
 export default {
+    components:{Navbar},
     setup(){
         return{v$:useVuelidate()}
     },
@@ -78,13 +81,15 @@ methods:{
         })
         .then(response => response.json())
         .then(data => this.sessionid = data.session_id)
-        .then(data => {console.log(this.sessionid)})})
-        })
-        if(this.sessionid){window.location.replace('http://localhost:8080/' + this.sessionid)}
+        .then(data => {console.log(this.sessionid)
+        if(this.sessionid){this.$router.push({name: 'Loged', params:{sessionid:this.sessionid}})}
+        else{
+            alert('Popuni info')
+        }
         
-    }else{
-    alert('Popuni info')
-}
+        }
+        )})})
+        }
 }
 }
 }

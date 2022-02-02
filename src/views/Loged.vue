@@ -1,5 +1,5 @@
 <template>
-<Navbar />
+<Navbarloged />
 <div class="frame" v-if="popular">
 <div class="top">
     <h1>Popular</h1>
@@ -81,9 +81,9 @@
 </template>
 
 <script>
-import Navbar from './Navbar.vue'
+import Navbarloged from './Navbarloged.vue'
 export default {
-    components:{Navbar},
+    components:{Navbarloged},
     methods:{
         toMovie(id){
             this.$router.push({ name: 'Moviedetails', params: { id: id }}) 
@@ -128,8 +128,11 @@ fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d6c64
 }
 }
 </script>
-
 <style scoped>
+.navbar{
+display: none;
+    
+}
 .frame{
     display: flex;
     flex-direction: column;

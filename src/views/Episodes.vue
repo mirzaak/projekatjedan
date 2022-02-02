@@ -1,4 +1,5 @@
 <template>
+<Navbar />
 <div class="nav">
 <a href="#">Overview</a>
 <a href="#">Casts</a>
@@ -47,7 +48,9 @@
 </template>
 
 <script>
+import Navbar from './Navbar.vue'
 export default {
+    components:{Navbar},
   methods:{
     expand(index){
       console.log(index)

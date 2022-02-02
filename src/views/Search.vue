@@ -1,4 +1,5 @@
 <template>
+<Navbar />
 <div class="searchbar">
 <input type="text" placeholder="Search..." name="" id="" @keyup.enter="submit" v-model="query">
 </div>
@@ -24,7 +25,9 @@
 </template>
 
 <script>
+import Navbar from './Navbar.vue'
 export default {
+    components:{Navbar},
 data(){
     return{
         query:null,
@@ -35,7 +38,7 @@ data(){
 methods:{
     submit(){
         console.log('Radi')
-    fetch('https://api.themoviedb.org/3/search/movie?api_key=0b5e8ce7494ae54d6c643adf4db40da7&language=en-US&query=' + this.query)
+    fetch('https://api.themoviedb.org/3/search/movie?api_key=0b5e8ce7494ae54d6c643adf4db40da7&query=' + this.query)
     .then(res => res.json())
     .then(data=>this.podaci = data)
     .then(data=>{console.log(this.podaci)})

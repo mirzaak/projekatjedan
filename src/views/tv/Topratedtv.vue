@@ -1,4 +1,5 @@
 <template>
+<Navbar />
 <div class="naslov">
     <h1>Top Rated TV Shows</h1>
 </div>
@@ -40,7 +41,9 @@
 </template>
 
 <script>
+import Navbar from '../Navbar.vue'
 export default {
+    components:{Navbar},
     methods:{
         toMovie(id){
             this.$router.push({ name: 'Tvdetails', params: { id: id }}) 

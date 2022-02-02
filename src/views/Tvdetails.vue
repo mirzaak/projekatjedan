@@ -1,4 +1,5 @@
 <template>
+<Navbar />
 <div class="nav" v-if="podaci">
 <a href="#">Overview</a>
 <a href="#">Casts</a>
@@ -136,7 +137,9 @@
 </template>
 
 <script>
+import Navbar from './Navbar.vue'
 export default {
+    components:{Navbar},
     methods:{
         toSeason(id){
             this.$router.push({ name: 'Seasons', params: { id: id }}) 
