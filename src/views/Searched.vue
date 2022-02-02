@@ -19,7 +19,7 @@
     </div>
     </div>
     <div class="right" v-if="podaci">
-        <div class="rezultat" v-for="podatak in podaci.results" :key="podatak">
+        <div class="rezultat" v-for="podatak in podaci.results" :key="podatak" @click="toMovie(podatak.id)">
             <div class="main">
                 <img :src=" slikaurl + podatak.poster_path" alt="">
                 <div class="info">
@@ -61,6 +61,9 @@ data(){
     }
 },
 methods:{
+        toMovie(id){
+            this.$router.push({ name: 'Moviedetails', params: { id: id }}) 
+        },
     submit(){
     fetch('https://api.themoviedb.org/3/search/movie?api_key=0b5e8ce7494ae54d6c643adf4db40da7&query=' + this.query)
     .then(res => res.json())
@@ -202,6 +205,7 @@ methods:{
     height: 150px;
 }
 .rezultat{
+    cursor: pointer;
     display: flex;
     border: 1px solid lightgrey;
     width: 1100px;

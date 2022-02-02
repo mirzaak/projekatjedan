@@ -28,7 +28,7 @@
       <button>Search</button>
   </div>
   <div class="right" v-if="podaci">
-    <div class="card" v-for="podatak in podaci.results" :key="podatak">
+    <div class="card" v-for="podatak in podaci.results" :key="podatak" @click="toMovie(podatak.id)">
         <img :src=" slikaurl + podatak.poster_path" alt="">
         <div class="info">
             <h3>{{ podatak.original_title}}</h3>
@@ -43,6 +43,11 @@
 <script>
 import Navbar from '../Navbar.vue'
 export default {
+    methods:{
+        toMovie(id){
+            this.$router.push({ name: 'Moviedetails', params: { id: id }}) 
+        }
+    },
     components:{Navbar},
     data(){
         return{
@@ -91,6 +96,7 @@ fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=0b5e8ce7494ae54d6c643
     display: flex;
     flex-direction: column;
     margin: 20px;
+    cursor: pointer;
 }
 .info{
     display: flex;

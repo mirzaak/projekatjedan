@@ -59,13 +59,13 @@
 <div class="ostalo" v-if="podaci">
 <div class="left" v-if="podaci">
 <div class="viewmore" v-if="podaci">
-    <a href="#">View more</a>
+<router-link :to="{ name: 'People' }"><a href="#">View more</a></router-link>
 </div>
 <div class="naslov" v-if="podaci">
 <h1>Top Billed Cast</h1>
 </div>
 <div class="glumci" v-if="podaci">
-<div v-for="glumac in podaci.credits.cast" :key="glumac">
+<div class="glumac" v-for="glumac in podaci.credits.cast" :key="glumac" @click="toActor(glumac.id)">
 <img :src=" slikaurl + glumac.profile_path" alt="">
 <div class="infoglumci">
 <h1>{{ glumac.original_name }}</h1>
@@ -121,6 +121,11 @@
 <script>
 import Navbar from './Navbar.vue'
 export default {
+    methods:{
+        toActor(id){
+            this.$router.push({ name: 'Actordetails', params: { person: id }}) 
+        }
+    },
     components:{Navbar},
     data(){
         return{
@@ -424,5 +429,8 @@ mounted(){
 .rating p{
     color: white;
     margin-left: 0px;
+}
+.glumac{
+    cursor: pointer;
 }
 </style>

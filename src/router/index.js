@@ -21,6 +21,8 @@ import Watchlist from '../views/Watchlist.vue'
 import Watchlisttv from '../views/Watchlisttv.vue'
 import Ratings from '../views/Ratings.vue'
 import Ratingstv from '../views/Ratingstv.vue'
+import Actordetails from '../views/Actordetails.vue'
+import People from '../views/People.vue'
 
 
 const routes = [
@@ -133,6 +135,16 @@ const routes = [
     path: '/ratings/tv',
     name: 'Ratingstv',
     component: Ratingstv
+  },
+  {
+    path: '/people/:person',
+    name: 'Actordetails',
+    component: Actordetails
+  },
+  {
+    path: '/people',
+    name: 'People',
+    component: People
   },
   
 ]

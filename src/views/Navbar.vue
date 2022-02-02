@@ -19,7 +19,7 @@
 <router-link to="/ontheairtv"><a href="#">On TV</a></router-link>
 <router-link to="/topratedtv"><a href="#">Top Rated</a></router-link>
 </div>
-<router-link to="/"><a href="#">People</a></router-link>
+<router-link :to="{ name: 'People' }"><a href="#">People</a></router-link>
 </div>
 </div>
 
