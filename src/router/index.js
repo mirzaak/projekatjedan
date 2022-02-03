@@ -23,6 +23,7 @@ import Ratings from '../views/Ratings.vue'
 import Ratingstv from '../views/Ratingstv.vue'
 import Actordetails from '../views/Actordetails.vue'
 import People from '../views/People.vue'
+import Reviews from '../views/Reviews.vue'
 
 
 const routes = [
@@ -87,11 +88,6 @@ const routes = [
     component: Loged
   },
   {
-    path: '/movie/:id',
-    name: 'Moviedetails',
-    component: Moviedetails
-  },
-  {
     path: '/tv/:id',
     name: 'Tvdetails',
     component: Tvdetails
@@ -145,6 +141,16 @@ const routes = [
     path: '/people',
     name: 'People',
     component: People
+  },
+  {
+    path: '/movie/:id',
+    name: 'Moviedetails',
+    component: Moviedetails
+  },
+  {
+    path: '/movie/:id/reviews',
+    name: 'Reviews',
+    component: Reviews
   },
   
 ]

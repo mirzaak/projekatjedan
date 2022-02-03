@@ -31,7 +31,7 @@
 <div class="okvir">
     <div class="top" v-if="ratedtv">
         <div class="left" v-if=" rated">
-            <h1>My Watchlist</h1>
+            <h1>My Ratings</h1>
             <div class="tritacke"></div>
             <div>
                 <router-link :to="{ name: 'Ratings' }"><a href="#">Movies {{ rated.total_results}}</a></router-link>
@@ -45,8 +45,8 @@
             <img src="../assets/search.svg" alt="">
         </div>
     </div>
-    <div class="glavno" v-if="ratedtv">
-        <div class="pojedinacno" v-for=" podatak in ratedtv.results" :key="podatak"> 
+    <div class="glavno" v-if="watchlist">
+        <div class="pojedinacno" v-for=" podatak in rated.results" :key="podatak"> 
             <img :src=" slikaurl + podatak.poster_path" alt="">
             <div class="main">
             <div class="prvired">
@@ -185,6 +185,8 @@ fetch('https://api.themoviedb.org/3/account?api_key=0b5e8ce7494ae54d6c643adf4db4
     margin: auto;
 }
 .left {
+    display: flex;
+    flex-direction: row;
     align-items: center;
     margin: 0;
 }
@@ -312,6 +314,8 @@ fetch('https://api.themoviedb.org/3/account?api_key=0b5e8ce7494ae54d6c643adf4db4
     margin-left: 10px;
 }
 .right{
+    display: flex;
+    flex-direction: row;
     margin: 0;
 }
 </style>

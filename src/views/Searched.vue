@@ -72,7 +72,7 @@ methods:{
     .then(this.$router.push({ name: 'Searched', params:{query:this.query}}))
         
     },
-    wlist(id){
+wlist(id){
    fetch('https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=33522d9c0079fa05be09899969ee757f36395862', {
   method: 'POST', 
   headers: {

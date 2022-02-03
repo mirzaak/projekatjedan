@@ -5,7 +5,6 @@
 <a href="#">Casts</a>
 <a href="#">Reviews</a>
 </div>
-<div class="main" v-if="podaci">
 <div class="top" v-if="podaci">
 <div class="iza" v-if="podaci">
 <img :src=" slikaurl + podaci.backdrop_path" alt="">
@@ -33,8 +32,8 @@
 <img src="../assets/Rectangle.svg" alt="">
 <img src="../assets/Rectangle.svg" alt="">
 <div class="mslike">
-<img src="../assets/heart.svg" alt="">
-<img src="../assets/bookmark.svg" alt="">
+<img src="../assets/heart.svg" alt="" @click="favorite(podaci.id)">
+<img src="../assets/bookmark.svg" alt="" @click="watchlist(podaci.id)">
 <img src="../assets/star.svg" alt="">
 </div>
 </div>
@@ -54,7 +53,7 @@
 </div>
 </div>        
 </div>
-</div>
+
 
 <div class="ostalo" v-if="podaci">
 <div class="left" v-if="podaci">
@@ -86,7 +85,7 @@
 <p>Written by {{ podaci.reviews.results[0].author }} {{ podaci.reviews.results[0].created_at }}</p>
 <p>{{ podaci.reviews.results[0].content }}</p>
 </div>
-<a href="#">Read all Reviews</a>
+<router-link :to="{name:'Reviews'}"><a href="#">Read all Reviews</a></router-link>
 </div>
 
 </div>
@@ -124,7 +123,50 @@ export default {
     methods:{
         toActor(id){
             this.$router.push({ name: 'Actordetails', params: { person: id }}) 
-        }
+        },
+        toReview(id){
+            this.$router.push({ name: 'Reviews', params: { id: id }}) 
+        },
+watchlist(id){
+   fetch('https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=33522d9c0079fa05be09899969ee757f36395862', {
+  method: 'POST', 
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+  "media_type": "movie",
+  "media_id": id,
+  "watchlist": true
+}),
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+  },
+  favorite(id){
+   fetch('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=12f9c5163eb1e5d613bb89b717244a9322e8f8da', {
+  method: 'POST', 
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+  "media_type": "movie",
+  "media_id": id,
+  "favorite": true
+}),
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+  },
     },
     components:{Navbar},
     data(){
@@ -168,21 +210,23 @@ mounted(){
     width: 100%;
     filter: brightness(15%);
 
+
 }
 .iza{
-    position: relative;
+
     width: 100%;
 }
 .ispred img{
     height: 400px;
+
 }
 .ispred{
     display: flex;
     align-items: center;
     position: absolute;
-    width: 1000px;
+    width: 1400px;
     height: 500px;
-    margin-left: 200px;
+    margin-left: 50px;
 }
 .info{
     color: white;

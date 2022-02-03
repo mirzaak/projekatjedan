@@ -64,10 +64,6 @@
             <div class="jedan"><a>F</a></div><p>Favorite</p>
             <div class="jedan"><a>+</a></div><p>Add To List</p>
             <div class="jedan"><a>X</a></div><p>Remove</p>
-
-
-
-
         </div>
         </div>
         </div>

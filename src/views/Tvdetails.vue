@@ -67,7 +67,7 @@
 <h1>Top Billed Cast</h1>
 </div>
 <div class="glumci" v-if="podaci">
-<div v-for="glumac in podaci.credits.cast" :key="glumac">
+<div v-for="glumac in podaci.credits.cast" :key="glumac" @click="toActor(glumac.id)">
 <img :src=" slikaurl + glumac.profile_path" alt="">
 <div class="infoglumci">
 <h1>{{ glumac.original_name }}</h1>
@@ -143,7 +143,10 @@ export default {
     methods:{
         toSeason(id){
             this.$router.push({ name: 'Seasons', params: { id: id }}) 
-        }
+        },
+        toActor(id){
+            this.$router.push({ name: 'Actordetails', params: { person: id }}) 
+        },
     },
     data(){
         return{
@@ -303,6 +306,7 @@ mounted(){
     
 }
 .glumci{
+    cursor: pointer;
     display: flex;
 }
 .infoglumci{

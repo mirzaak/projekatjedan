@@ -181,6 +181,8 @@ fetch('https://api.themoviedb.org/3/account?api_key=0b5e8ce7494ae54d6c643adf4db4
     margin: auto;
 }
 .left {
+    display: flex;
+    flex-direction: row;
     align-items: center;
     margin: 0;
 }
@@ -308,6 +310,7 @@ fetch('https://api.themoviedb.org/3/account?api_key=0b5e8ce7494ae54d6c643adf4db4
     margin-left: 10px;
 }
 .right{
-    margin: 0;
+    display: flex;
+    flex-direction: row;
 }
 </style>
