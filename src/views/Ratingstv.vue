@@ -46,7 +46,7 @@
         </div>
     </div>
     <div class="glavno" v-if="watchlist">
-        <div class="pojedinacno" v-for=" podatak in rated.results" :key="podatak"> 
+        <div class="pojedinacno" v-for=" podatak in ratedtv.results" :key="podatak"> 
             <img :src=" slikaurl + podatak.poster_path" alt="">
             <div class="main">
             <div class="prvired">

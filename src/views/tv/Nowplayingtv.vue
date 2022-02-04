@@ -47,7 +47,7 @@ export default {
     methods:{
         toMovie(id){
             this.$router.push({ name: 'Tvdetails', params: { id: id }}) 
-        }
+        },
     },
     data(){
         return{

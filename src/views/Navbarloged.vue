@@ -26,6 +26,7 @@
 </div>
 </div>
 </div>
+<div class="navdesno">
 <div class="navright">
 <div class="navdropdown" v-if="podaci">
 <router-link :to="{ name: 'Watchlist'}"><a href="#">{{ podaci.username }}</a></router-link>
@@ -34,8 +35,11 @@
 <router-link :to="{ name: 'Ratings'}"><a href="#">My Ratings</a></router-link>
 </div>
 </div>
+
+</div>
 <router-link :to="{ name: 'Search' }"><img src="../assets/search.svg" alt=""></router-link>
 </div>
+
 </div>
 
 
@@ -47,18 +51,19 @@
 export default{
   data(){
     return{
-      podaci:null
+      podaci:null,
+      sessionid:this.$route.params.sessionid
     }
   },
   mounted(){
-    fetch('https://api.themoviedb.org/3/account?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=f95caa0f4752ba79268ad7a023c023a70514310b')
+    fetch('https://api.themoviedb.org/3/account?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sessionid)
     .then(res => res.json())
     .then(data =>this.podaci = data)
 
   }
 }
 </script>
-<style>
+<style scoped>
 *{
   font-family: 'Source Sans Pro', sans-serif;
   margin: 0;
@@ -85,7 +90,6 @@ export default{
   height: 50px;
   width: 250px;
   align-items: center;
-
   justify-content: space-between;
   margin-left: 20px;
 }
@@ -93,25 +97,24 @@ export default{
   height: 12px;
   width: 12px;
 }
+.navdesno{
+  display: flex;
+  height: 50px;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 150px;
+}
 .navright{
   display: flex;
   flex-direction: row;
-  height: 50px;
   align-items: center;
-  justify-content: space-between;
-  width: 250px;
-
+  height: 50px;
+  width: 0px;
   margin-right: 150px;
 }
 .navright a{
-  color: white;
-  text-decoration: none;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-.navright img{
-  width: 25px;
-  height: 25px;
+  height: 20px;
+  align-self: center;
 }
 .navdropdown {
   display: flex;
@@ -121,13 +124,13 @@ export default{
   padding-top: 8px;
   padding-top: 15px;
   padding-bottom: 15px;
+  height: 20px;
 }
 .navpeople {
   display: flex;
   flex-direction: row;
   justify-content: center;
   background: lightgray;
-
   padding-top: 15px;
   padding-bottom: 15px;
 }
@@ -161,7 +164,6 @@ export default{
 .navdropdown:hover .navdropdowncontent{
   display: flex;
 }
-
 
 
 </style>

@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import HomeLoged from '../views/Home.vue'
 import Popular from '../views/movie/Popular.vue'
 import Nowplaying from '../views/movie/Nowplaying.vue'
 import Toprated from '../views/movie/Toprated.vue'
@@ -31,11 +30,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  },
-  {
-    path: '/:sessionid',
-    name: 'HomeLoged',
-    component: HomeLoged
   },
   {
     path: '/popular',

@@ -15,7 +15,7 @@
 
 <div class="sezone" v-if="podaci">
 <div class="pojedinacno">
-<div class="sezona" v-for="sezona in podaci.seasons" :key="sezona">
+<div class="sezona" v-for="sezona in podaci.seasons" :key="sezona" @click="toSeason(sezona.season_number)">
 <img :src=" slikaurl + sezona.poster_path" alt="">
 <div class="info">
 <div class="prvired">
@@ -38,7 +38,10 @@ export default {
     methods:{
         goBack(){
             this.$router.go(-1)
-        }
+        },
+        toSeason(number){
+            this.$router.push({ name: 'Episodes', params: { sn: number }}) 
+        },
     },
     data(){
         return{
@@ -75,6 +78,7 @@ mounted(){
 }
 .sezone img {
     width: 100px;
+    height: 150px;
 }
 .sezone{
     display: flex;
@@ -85,13 +89,15 @@ mounted(){
 }
 .pojedinacno{
     display: flex;
-    flex-direction: column;  
+    flex-direction: column;
 }
 .sezona{
     display: flex;
     margin-bottom: 10px;
     margin-top: 10px;
     border-bottom: 1px solid gray;
+    cursor: pointer;
+    align-items: center;
 }
 .info{
     margin-left: 20px;

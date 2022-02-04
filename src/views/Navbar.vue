@@ -26,11 +26,13 @@
 </div>
 </div>
 </div>
+
 <div class="navright">
 <router-link to="/login"><a href="#">Login</a></router-link>
 <router-link to="/login"><a href="#">Join TMDB</a></router-link>
 <router-link :to="{ name: 'Search' }"><img src="../assets/search.svg" alt=""></router-link>
 </div>
+
 </div>
 
 
@@ -81,8 +83,7 @@
   align-items: center;
   justify-content: space-between;
   width: 250px;
-
-  margin-right: 150px;
+  margin-right: 150px;  
 }
 .navright a{
   color: white;
@@ -93,7 +94,9 @@
 .navright img{
   width: 25px;
   height: 25px;
+
 }
+
 .navdropdown {
   display: flex;
   flex-direction: row;

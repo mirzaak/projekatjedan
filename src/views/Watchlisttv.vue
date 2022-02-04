@@ -30,22 +30,22 @@
 
 <div class="okvir">
     <div class="top" v-if="watchlisttv">
-        <div class="left" v-if=" watchlist">
+        <div class="l" v-if=" watchlist">
             <h1>My Watchlist</h1>
             <div class="tritacke"></div>
-            <div>
+            <div v-if="watchlist.total_results">
                 <router-link :to="{ name: 'Watchlist' }"><a href="#">Movies {{ watchlist.total_results}}</a></router-link>
                 <router-link :to="{ name: 'Watchlisttv' }"><a href="#">TV {{ watchlisttv.total_results}}</a></router-link>
             </div>
         </div>
-        <div class="right">
+        <div class="d">
             <p>Filtered by:</p>
             <ul>Date Added</ul>
             <ul>Order</ul>
             <img src="../assets/search.svg" alt="">
         </div>
     </div>
-    <div class="glavno" v-if="watchlisttv">
+    <div class="glavno" v-if="watchlist">
         <div class="pojedinacno" v-for=" podatak in watchlisttv.results" :key="podatak"> 
             <img :src=" slikaurl + podatak.poster_path" alt="">
             <div class="main">
@@ -105,7 +105,7 @@ fetch('https://api.themoviedb.org/3/account?api_key=0b5e8ce7494ae54d6c643adf4db4
     .then(data => this.rated = data)
     .then(data => console.log(data,'rated'))
 
-    fetch('https://api.themoviedb.org/3/account/{account_id}/watchlist/tv?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=f95caa0f4752ba79268ad7a023c023a70514310b')
+    fetch('https://api.themoviedb.org/3/account/{account_id}/watchlist/tv?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
     .then(response => response.json())
     .then(data => this.watchlisttv = data)
     .then(data => console.log(data))
@@ -175,14 +175,17 @@ fetch('https://api.themoviedb.org/3/account?api_key=0b5e8ce7494ae54d6c643adf4db4
     align-items: center;
     margin: auto;
 }
-.left {
+.l {
     align-items: center;
     margin: 0;
+    width:400px;
+    height: 50px;
+    display: flex;
 }
-.left h1{
+.l h1{
     font-size: 25px;
 }
-.left a{
+.l a{
     margin-left: 10px;
     color: black;
     text-decoration: none;
@@ -297,12 +300,14 @@ fetch('https://api.themoviedb.org/3/account?api_key=0b5e8ce7494ae54d6c643adf4db4
     width: 20px;
     margin-left: 10px;
 }
-.right img{
+.d img{
     height: 20px;
     width: 20px;
     margin-left: 10px;
 }
-.right{
+.d{
     margin: 0;
+    width: 300px;
+    display:flex;
 }
 </style>

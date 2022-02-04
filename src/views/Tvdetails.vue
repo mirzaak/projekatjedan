@@ -29,12 +29,12 @@
 <h3>{{ podaci.vote_average }}</h3>
 <p>User score</p>
 <div class="micons">
-<img src="../assets/Rectangle.svg" alt="">
-<img src="../assets/Rectangle.svg" alt="">
+<img src="../assets/Rectangle.svg" alt="" @click="watchlist(podaci.id)">
+<img src="../assets/Rectangle.svg" alt="" @click="favorite(podaci.id)">
 <img src="../assets/Rectangle.svg" alt="">
 <div class="mslike">
-<img src="../assets/heart.svg" alt="">
-<img src="../assets/bookmark.svg" alt="">
+<img src="../assets/heart.svg" alt="" @click="watchlist(podaci.id)">
+<img src="../assets/bookmark.svg" alt="" @click="favorite(podaci.id)">
 <img src="../assets/star.svg" alt="">
 </div>
 </div>
@@ -147,6 +147,45 @@ export default {
         toActor(id){
             this.$router.push({ name: 'Actordetails', params: { person: id }}) 
         },
+watchlist(id){
+   fetch('https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=33522d9c0079fa05be09899969ee757f36395862', {
+  method: 'POST', 
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+  "media_type": "tv",
+  "media_id": id,
+  "watchlist": true
+}),
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+  },
+  favorite(id){
+   fetch('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=12f9c5163eb1e5d613bb89b717244a9322e8f8da', {
+  method: 'POST', 
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+  "media_type": "tv",
+  "media_id": id,
+  "favorite": true
+}),
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});}
     },
     data(){
         return{

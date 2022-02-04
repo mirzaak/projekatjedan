@@ -51,9 +51,8 @@
 import Navbar from './Navbar.vue'
 export default {
     components:{Navbar},
-  methods:{
-    expand(index){
-      console.log(index)
+    computed:{
+      expand(){
   var expand = document.getElementsByClassName("expand");
   var i;
   for (i = 0; i < expand.length; i++) {
@@ -66,8 +65,7 @@ export default {
     }
   });
 }
-    }
-  },
+    }},
 data(){
     return{
         epizoda:null,

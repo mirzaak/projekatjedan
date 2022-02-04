@@ -1,8 +1,8 @@
 <template>
 <Navbar />
 <div class="nav" v-if="podaci">
-<a href="#">Overview</a>
 <a href="#">Casts</a>
+<a href="#">Overview</a>
 <a href="#">Reviews</a>
 </div>
 <div class="top" v-if="podaci">
@@ -181,6 +181,7 @@ mounted(){
     .then(res => res.json())
     .then(data => this.podaci = data)
     .then(data => console.log(this.podaci))
+
 }
 }
 </script>
@@ -213,12 +214,11 @@ mounted(){
 
 }
 .iza{
-
     width: 100%;
 }
 .ispred img{
     height: 400px;
-
+    position: relative;
 }
 .ispred{
     display: flex;
