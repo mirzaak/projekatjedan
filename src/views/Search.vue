@@ -9,12 +9,6 @@
         <h1>Search Results</h1>
     </div>
     <div class="kategorija"><a href="#">Movies</a></div>
-    <div class="kategorija"><a href="#">TV Shows</a></div>
-    <div class="kategorija"><a href="#">People</a></div>
-    <div class="kategorija"><a href="#">Collections</a></div>
-    <div class="kategorija"><a href="#">Companies</a></div>
-    <div class="kategorija"><a href="#">Keywords</a></div>
-    <div class="kategorija"><a href="#">Networks</a></div>
     </div>
     <div class="right">
         <p>There are no movies that matched your query.</p>

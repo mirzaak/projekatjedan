@@ -1,9 +1,9 @@
 <template>
 <Navbar />
 <div class="nav" v-if="podaci">
-<a href="#">Casts</a>
 <a href="#">Overview</a>
-<a href="#">Reviews</a>
+<router-link :to="{name:'People'}"><a href="#">Casts</a></router-link>
+<router-link :to="{name:'Reviews'}"><a href="#">Reviews</a></router-link>
 </div>
 <div class="top" v-if="podaci">
 <div class="iza" v-if="podaci">
@@ -27,14 +27,14 @@
 <img src="../assets/Rectangle.svg" alt="">
 <h3>{{ podaci.vote_average }}</h3>
 <p>User score</p>
-<div class="micons">
-<img src="../assets/Rectangle.svg" alt="">
-<img src="../assets/Rectangle.svg" alt="">
-<img src="../assets/Rectangle.svg" alt="">
-<div class="mslike">
-<img src="../assets/heart.svg" alt="" @click="favorite(podaci.id)">
-<img src="../assets/bookmark.svg" alt="" @click="watchlist(podaci.id)">
-<img src="../assets/star.svg" alt="">
+<div class="micons" v-if="sesija">
+<div class="rate" @click="favorite(podaci.id)"><img src="../assets/Rectangle.svg" alt=""><img class="mslike" src="../assets/heart.svg" alt="">
+</div>
+<div class="rate" @click="watchlist(podaci.id)"><img src="../assets/Rectangle.svg" alt=""><img class="mslike" src="../assets/bookmark.svg" alt=""></div>
+<div class="rate"><img src="../assets/Rectangle.svg" alt=""><img class="mslike" src="../assets/star.svg" alt="">
+<div class="ratecontent">
+<star-rating v-bind:increment="0.5" v-bind:star-size="30" v-bind:max-rating="5" v-model:rating="rating" @update:rating="setRating(podaci.id,rating)"></star-rating>
+</div>
 </div>
 </div>
 </div>
@@ -76,7 +76,7 @@
 <div class="drugidio" v-if="podaci.reviews.results[0]">
 <a href="#">Full Cast and Crew</a>
 <img src="../assets/Rectangle.svg" alt="">
-<a href="#">Reviews</a>
+<router-link :to="{name:'Reviews'}"><a href="#">Reviews</a></router-link>
 <div class="reviews" v-if="podaci">
 <div class="prvired" v-if="podaci">
 <h1>A review by {{ podaci.reviews.results[0].author_details.username}}</h1>
@@ -119,8 +119,21 @@
 
 <script>
 import Navbar from './Navbar.vue'
+import {mapGetters} from 'vuex'
+import StarRating from 'vue-star-rating'
+import axios from 'axios'
 export default {
+    computed:{
+        ...mapGetters(['sesija'])
+    },
     methods:{
+        setRating(id,rating){
+            console.log(rating)
+            console.log(id)
+            axios.post('https://api.themoviedb.org/3/movie/' + id + '/rating?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija,{
+                value: rating
+            })
+        },
         toActor(id){
             this.$router.push({ name: 'Actordetails', params: { person: id }}) 
         },
@@ -128,27 +141,21 @@ export default {
             this.$router.push({ name: 'Reviews', params: { id: id }}) 
         },
 watchlist(id){
-   fetch('https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=33522d9c0079fa05be09899969ee757f36395862', {
-  method: 'POST', 
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-  "media_type": "movie",
-  "media_id": id,
-  "watchlist": true
-}),
-})
-.then(response => response.json())
-.then(data => {
-  console.log('Success:', data);
-})
-.catch((error) => {
-  console.error('Error:', error);
-});
+   fetch('https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija, {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+        "media_type": "movie",
+        "media_id": id,
+        "watchlist": true
+        }),
+        })
+        .then(response => response.json())
   },
   favorite(id){
-   fetch('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=12f9c5163eb1e5d613bb89b717244a9322e8f8da', {
+   fetch('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija, {
   method: 'POST', 
   headers: {
     'Content-Type': 'application/json',
@@ -160,17 +167,13 @@ watchlist(id){
 }),
 })
 .then(response => response.json())
-.then(data => {
-  console.log('Success:', data);
-})
-.catch((error) => {
-  console.error('Error:', error);
-});
   },
     },
-    components:{Navbar},
+    components:{Navbar,StarRating},
     data(){
         return{
+            rate:null,
+            rating:null,
             podaci:null,
             id:this.$route.params.id,
             slikaurl: 'https://image.tmdb.org/t/p/original/',
@@ -203,22 +206,19 @@ mounted(){
     display: flex;
     width: 100%;
     height: 500px;
-    background: lightgray;
     overflow: hidden;
-
 }
 .iza img{
     width: 100%;
     filter: brightness(15%);
-
-
+    z-index: 1;
 }
 .iza{
     width: 100%;
+    z-index: 1;
 }
 .ispred img{
     height: 400px;
-    position: relative;
 }
 .ispred{
     display: flex;
@@ -226,7 +226,9 @@ mounted(){
     position: absolute;
     width: 1400px;
     height: 500px;
+    margin: auto;
     margin-left: 50px;
+    z-index: 2;
 }
 .info{
     color: white;
@@ -260,6 +262,7 @@ mounted(){
 .vicons{
     display: flex;
     flex-direction: row;
+
 }
 .vicons img{
     height: 50px;
@@ -282,18 +285,6 @@ mounted(){
     margin-top: 15px;
     margin-left: 15px;
     position: absolute;
-    cursor: pointer;
-}
-.mslike{
-    display: flex;
-    position: absolute;
-    width: 130px;
-    margin-left: 11px;
-    justify-content: space-between;
-}
-.mslike img{
-    height: 10px;
-    width: 10px;
     cursor: pointer;
 }
 .bitniglumci p{
@@ -477,4 +468,30 @@ mounted(){
 .glumac{
     cursor: pointer;
 }
+.rate img{
+    position: absolute;
+}
+.rate{
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rate:hover .ratecontent{
+    display: flex;
+}
+.mslike{
+    height: 10px;
+    width: 10px;
+}
+.ratecontent{
+    position: absolute;
+    display: none;
+    background: white;
+    margin-bottom: 60px;
+    width: 150px;
+    border-radius: 10px;
+}
+
+
 </style>

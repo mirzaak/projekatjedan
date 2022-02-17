@@ -2,8 +2,7 @@
 <Navbar />
 <div class="nav" v-if="podaci">
 <a href="#">Overview</a>
-<a href="#">Casts</a>
-<a href="#">Reviews</a>
+<router-link :to="{name:'People'}"><a href="#">Casts</a></router-link>
 </div>
 <div class="main" v-if="podaci">
 <div class="top" v-if="podaci">
@@ -28,14 +27,14 @@
 <img src="../assets/Rectangle.svg" alt="">
 <h3>{{ podaci.vote_average }}</h3>
 <p>User score</p>
-<div class="micons">
-<img src="../assets/Rectangle.svg" alt="" @click="watchlist(podaci.id)">
-<img src="../assets/Rectangle.svg" alt="" @click="favorite(podaci.id)">
-<img src="../assets/Rectangle.svg" alt="">
-<div class="mslike">
-<img src="../assets/heart.svg" alt="" @click="watchlist(podaci.id)">
-<img src="../assets/bookmark.svg" alt="" @click="favorite(podaci.id)">
-<img src="../assets/star.svg" alt="">
+<div class="micons" v-if="sesija">
+<div class="rate" @click="favorite(podaci.id)"><img src="../assets/Rectangle.svg" alt=""><img class="mslike" src="../assets/heart.svg" alt="">
+</div>
+<div class="rate" @click="watchlist(podaci.id)"><img src="../assets/Rectangle.svg" alt=""><img class="mslike" src="../assets/bookmark.svg" alt=""></div>
+<div class="rate"><img src="../assets/Rectangle.svg" alt=""><img class="mslike" src="../assets/star.svg" alt="">
+<div class="ratecontent">
+<star-rating v-bind:increment="0.5" v-bind:star-size="30" v-model:rating="rating" @update:rating="setRating(podaci.id,rating)"></star-rating>
+</div>
 </div>
 </div>
 </div>
@@ -138,9 +137,22 @@
 
 <script>
 import Navbar from './Navbar.vue'
+import { mapGetters } from 'vuex'
+import StarRating from 'vue-star-rating'
+import axios from 'axios'
 export default {
-    components:{Navbar},
+    components:{Navbar,StarRating},
+    computed:{
+        ...mapGetters(['sesija'])
+    },
     methods:{
+        setRating(id,rating){
+            console.log(rating)
+            console.log(id)
+            axios.post('https://api.themoviedb.org/3/tv/' + id + '/rating?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija,{
+                value: rating
+            })
+        },
         toSeason(id){
             this.$router.push({ name: 'Seasons', params: { id: id }}) 
         },
@@ -148,7 +160,7 @@ export default {
             this.$router.push({ name: 'Actordetails', params: { person: id }}) 
         },
 watchlist(id){
-   fetch('https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=33522d9c0079fa05be09899969ee757f36395862', {
+   fetch('https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija, {
   method: 'POST', 
   headers: {
     'Content-Type': 'application/json',
@@ -160,15 +172,9 @@ watchlist(id){
 }),
 })
 .then(response => response.json())
-.then(data => {
-  console.log('Success:', data);
-})
-.catch((error) => {
-  console.error('Error:', error);
-});
   },
   favorite(id){
-   fetch('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=12f9c5163eb1e5d613bb89b717244a9322e8f8da', {
+   fetch('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija, {
   method: 'POST', 
   headers: {
     'Content-Type': 'application/json',
@@ -179,13 +185,7 @@ watchlist(id){
   "favorite": true
 }),
 })
-.then(response => response.json())
-.then(data => {
-  console.log('Success:', data);
-})
-.catch((error) => {
-  console.error('Error:', error);
-});}
+.then(response => response.json())}
     },
     data(){
         return{
@@ -296,18 +296,6 @@ mounted(){
     margin-top: 15px;
     margin-left: 15px;
     position: absolute;
-    cursor: pointer;
-}
-.mslike{
-    display: flex;
-    position: absolute;
-    width: 130px;
-    margin-left: 11px;
-    justify-content: space-between;
-}
-.mslike img{
-    height: 10px;
-    width: 10px;
     cursor: pointer;
 }
 .bitniglumci p{
@@ -508,6 +496,30 @@ mounted(){
     cursor: pointer;
     color:black;
     margin-left: 20px;
+}
+.rate img{
+    position: absolute;
+}
+.rate{
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.rate:hover .ratecontent{
+    display: flex;
+}
+.mslike{
+    height: 10px;
+    width: 10px;
+}
+.ratecontent{
+    position: absolute;
+    display: none;
+    background: white;
+    margin-bottom: 60px;
+    width: 150px;
+    border-radius: 10px;
 }
 
 </style>

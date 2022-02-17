@@ -1,5 +1,6 @@
 <template>
-<Navbarloged />
+<Navbar />
+
 <div class="frame" v-if="popular">
 <div class="top">
     <h1>Popular</h1>
@@ -81,16 +82,18 @@
 </template>
 
 <script>
-import Navbarloged from './Navbarloged.vue'
+import axios from 'axios'
+import Navbar from './Navbar.vue'
 export default {
-    components:{Navbarloged},
+    components:{Navbar},
     methods:{
-        toMovie(id){
-            this.$router.push({ name: 'Moviedetails', params: { id: id }}) 
-        }
+    toMovie(id){
+        this.$router.push({ name: 'Moviedetails', params: { id: id }}) 
+    }
     },
     data(){
         return{
+            sessionid:this.$route.params.sessionid,
             movieid:[],
             popular:null,
             nowplaying:null,
@@ -100,31 +103,22 @@ export default {
         }
     },
 mounted(){
-
-fetch('https://api.themoviedb.org/3/movie/popular?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
-.then(response => response.json())
-.then(data => this.popular = data)
-.then(data => console.log(this.popular))
-
-
-fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
-.then(response => response.json())
-.then(data => this.now_playing = data)
-.then(data => console.log(this.now_playing))
-
-
-fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
-.then(response => response.json())
-.then(data => this.upcoming = data)
-.then(data => console.log(this.upcoming))
-
-
-fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
-.then(response => response.json())
-.then(data => this.top_rated = data)
-.then(data => console.log(this.top_rated))
-
-
+axios.get('https://api.themoviedb.org/3/movie/popular?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
+.then((response) => {
+    this.popular = response.data
+})
+axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
+.then((response) => {
+    this.now_playing = response.data
+})
+axios.get('https://api.themoviedb.org/3/movie/upcoming?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
+.then((response) => {
+    this.upcoming = response.data
+})
+axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
+.then((response) => {
+    this.top_rated = response.data
+})
 }
 }
 </script>

@@ -8,30 +8,46 @@
 </div>
 </div>
 <div class="buttons" v-if="podaci">
+<button @click="back(podaci.page)">Back</button>
 <button @click="next(podaci.page)">Next</button>
 </div>
 </template>
 
 <script>
 import Navbar from './Navbar.vue'
+import axios from 'axios'
+
 export default {
     methods:{
-        next(){
-            this.$router.push({name: 'Peoplepage', params:{page:2}})
+        async next(){
+        const podaci = await axios.get('https://api.themoviedb.org/3/person/popular?api_key=0b5e8ce7494ae54d6c643adf4db40da7&language=en-US&page=' + this.page++)
+        .then((response) => {
+        this.podaci = response.data
+        })
+        await this.$router.push({name:'Peoplepage', params:{page:this.page}})
+        },
+        async back(){
+        const podaci = await axios.get('https://api.themoviedb.org/3/person/popular?api_key=0b5e8ce7494ae54d6c643adf4db40da7&language=en-US&page=' + this.page--)
+        .then((response) => {
+        this.podaci = response.data
+        })
+        if(this.page === 0){this.$router.push({name:'People'})}else{
+        this.$router.push({name:'Peoplepage', params:{page:this.page}})}
         },
         toDetails(id){
-            this.$router.push({ name: 'Actordetails', params: { person: id }})            
+        this.$router.push({ name: 'Actordetails', params: { person: id }})            
         }
     },
     components:{Navbar},
     data(){
         return{
+            page:this.$route.params.page,
             podaci:null,
             slikaurl: 'https://image.tmdb.org/t/p/original/',
         }
     },
     created(){
-        fetch('https://api.themoviedb.org/3/person/popular?api_key=0b5e8ce7494ae54d6c643adf4db40da7&language=en-US')
+        fetch('https://api.themoviedb.org/3/person/popular?api_key=0b5e8ce7494ae54d6c643adf4db40da7&language=en-US&page=' + this.page)
         .then(res => res.json())
         .then(data => this.podaci = data)
         .then(data => console.log(this.podaci))
@@ -48,6 +64,7 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     margin: auto;
+    height: 1200px;
 }
 h2{
     margin-left: 150px;
@@ -84,11 +101,13 @@ h2{
     height: 50px;
     margin: auto;
     margin-bottom: 50px;
+    margin-top: 20px;
 }
 .buttons button{
     height: 40px;
     width: 60px;
-    justify-content: center;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 </style>

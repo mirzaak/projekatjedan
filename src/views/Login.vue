@@ -13,83 +13,62 @@
 
     <div class="loginn">
     <button @click="submit">Login</button>
-    <a>Reset password</a>
+    <a @click="resetPassword">Reset password</a>
     </div>
     </div>
 </div>
 </template>
 
 <script>
-import useVuelidate from '@vuelidate/core'
-import { required} from '@vuelidate/validators'
 import Navbar from './Navbar.vue'
+import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
-    components:{Navbar},
-    setup(){
-        return{v$:useVuelidate()}
+components:{Navbar},
+    computed:{
+        ...mapGetters(['sesija'])
     },
-    validations(){
-        return{
-            username:{ required },
-            password:{ required },
-        }
-    },
-
-
     data(){
         return{
             username:null,
             password:null,
             reqToken:null,
             approvedToken:null,
-            sessionid:null,
+            sessionid: null,
         }
     },
 methods:{
-    submit(){
-        this.v$.$validate()
-        if(!this.v$.$error){
-        //request token
-        fetch('https://api.themoviedb.org/3/authentication/token/new?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
-        .then(res =>res.json())
-        .then(data => this.reqToken = data.request_token)
-        .then(data => {console.log(this.reqToken,'requesttoken')
-        //approving token
-        return fetch('https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=0b5e8ce7494ae54d6c643adf4db40da7', {
-        method: 'POST',
-        headers: {
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-  "username": this.username,
-  "password": this.password,
-  "request_token": this.reqToken
-}),
+    async submit(){
+         console.log('submit')
+
+         const requestToken = await axios.get('https://api.themoviedb.org/3/authentication/token/new?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
+         .then((response) => {
+             this.reqToken = response.data.request_token
+         })
+
+         const approveToken = await axios.post('https://api.themoviedb.org/3/authentication/token/validate_with_login?api_key=0b5e8ce7494ae54d6c643adf4db40da7',{
+             username: this.username,
+             password: this.password,
+             request_token: this.reqToken
+         })
+         .then((response) => {
+             this.approvedToken = response.data.request_token
+         })
+
+        const sessionId = await axios.post('https://api.themoviedb.org/3/authentication/session/new?api_key=0b5e8ce7494ae54d6c643adf4db40da7',{
+            request_token: this.approvedToken
         })
-        .then(response => response.json())
-        .then(data => this.approvedToken = data.request_token)
-        .then(data => {console.log('approvedreqToken:', data);
-        //session id
-        return fetch('https://api.themoviedb.org/3/authentication/session/new?api_key=0b5e8ce7494ae54d6c643adf4db40da7', {
-        method: 'POST', 
-        headers: {
-        'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-  "request_token": this.approvedToken
-}),
+        .then((response) => {
+        this.$store.dispatch('sesija', response.data.session_id)
         })
-        .then(response => response.json())
-        .then(data => this.sessionid = data.session_id)
-        .then(data => {console.log(this.sessionid)
-        if(this.sessionid){this.$router.push({name: 'Loged', params:{sessionid:this.sessionid}})}
-        else{
-            alert('Popuni info')
-        }
-        
-        }
-        )})})
-        }
+        axios.get('https://api.themoviedb.org/3/account?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija)
+        .then((response)=>{
+        this.$store.dispatch('username', response.data.username)
+        })
+        this.$router.push({name:'Home'})
+},
+    resetPassword(){
+        window.location.href = "https://www.themoviedb.org/reset-password"
 }
 }
 }
@@ -99,7 +78,7 @@ methods:{
 .all{
     display: flex;
     flex-direction: column;
-    height: 600px;
+    height: 350px;
     width: 1200px;
     margin: auto;
     margin-top: 100px;
@@ -107,8 +86,7 @@ methods:{
 .login{
     display: flex;
     flex-direction: column;
-    height: 100px;
-    width: 1000px;
+    height: 200px;
 }
 .login input{
     width: 1180px;
@@ -118,7 +96,7 @@ methods:{
     margin-top: 10px;
 }
 .login input{
-    height: 50px;
+    height: 30px;
 }
 .login button{
     width: 70px;

@@ -9,7 +9,6 @@ import Nowplayingtv from '../views/tv/Nowplayingtv.vue'
 import Ontheairtv from '../views/tv/Ontheairtv.vue'
 import Topratedtv from '../views/tv/Topratedtv.vue'
 import Login from '../views/Login.vue'
-import Loged from '../views/Loged.vue'
 import Moviedetails from '../views/Moviedetails.vue'
 import Tvdetails from '../views/Tvdetails.vue'
 import Seasons from '../views/Seasons.vue'
@@ -22,6 +21,7 @@ import Ratings from '../views/Ratings.vue'
 import Ratingstv from '../views/Ratingstv.vue'
 import Actordetails from '../views/Actordetails.vue'
 import People from '../views/People.vue'
+import Peoplepage from '../views/Peoplepage.vue'
 import Reviews from '../views/Reviews.vue'
 
 
@@ -77,11 +77,6 @@ const routes = [
     component: Login
   },
   {
-    path: '/loged/:sessionid',
-    name: 'Loged',
-    component: Loged
-  },
-  {
     path: '/tv/:id',
     name: 'Tvdetails',
     component: Tvdetails
@@ -134,8 +129,14 @@ const routes = [
   {
     path: '/people',
     name: 'People',
-    component: People
+    component: People,
   },
+  {
+    path: '/people/pages/:page',
+    name: 'Peoplepage',
+    component: Peoplepage,
+  },
+
   {
     path: '/movie/:id',
     name: 'Moviedetails',
@@ -153,5 +154,4 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
 export default router

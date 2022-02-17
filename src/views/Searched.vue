@@ -10,23 +10,17 @@
     </div>
     <div >
     <div class="kategorija"><a href="#">Movies</a><p>{{ podaci.results.length}}</p></div>
-    <div class="kategorija"><a href="#">TV Shows</a><p></p></div>
-    <div class="kategorija"><a href="#">People</a><p></p></div>
-    <div class="kategorija"><a href="#">Collections</a><p></p></div>
-    <div class="kategorija"><a href="#">Companies</a><p></p></div>
-    <div class="kategorija"><a href="#">Keywords</a><p></p></div>
-    <div class="kategorija"><a href="#">Networks</a><p></p></div>
     </div>
     </div>
     <div class="right" v-if="podaci">
-        <div class="rezultat" v-for="podatak in podaci.results" :key="podatak" @click="toMovie(podatak.id)">
+        <div class="rezultat" v-for="podatak in podaci.results" :key="podatak" >
             <div class="main">
-                <img :src=" slikaurl + podatak.poster_path" alt="">
+                <img :src=" slikaurl + podatak.poster_path" alt="" @click="toMovie(podatak.id)">
                 <div class="info">
                     <div class="prvired">
-                    <h1>{{ podatak.original_title }}{{ podatak.original_name }}</h1>
-                    <button @click="wlist(podatak.id)">Watchlist</button>
-                    <button @click="favorite(podatak.id)">Favorite</button>
+                    <h1 @click="toMovie(podatak.id)">{{ podatak.original_title }}{{ podatak.original_name }}</h1>
+                    <button @click="wlist(podatak.id)" v-if="sesija">Watchlist</button>
+                    <button @click="favorite(podatak.id)" v-if="sesija">Favorite</button>
                     </div>
                     <p>{{ podatak.release_date }}{{ podatak.first_air_date }}</p>
                     <div class="overview">
@@ -43,9 +37,13 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 import Navbar from './Navbar.vue'
 export default {
     components:{Navbar},
+    computed:{
+        ...mapGetters(['sesija'])
+    },
 mounted(){
     fetch('https://api.themoviedb.org/3/search/movie?api_key=0b5e8ce7494ae54d6c643adf4db40da7&query=' + this.query)
     .then(res => res.json())
@@ -73,7 +71,7 @@ methods:{
         
     },
 wlist(id){
-   fetch('https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=33522d9c0079fa05be09899969ee757f36395862', {
+   fetch('https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija, {
   method: 'POST', 
   headers: {
     'Content-Type': 'application/json',
@@ -93,7 +91,7 @@ wlist(id){
 });
   },
   favorite(id){
-   fetch('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=12f9c5163eb1e5d613bb89b717244a9322e8f8da', {
+   fetch('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija, {
   method: 'POST', 
   headers: {
     'Content-Type': 'application/json',
@@ -198,6 +196,7 @@ wlist(id){
 }
 .rezultat img{
     width: 100px;
+    cursor: pointer;
 }
 .main{
     display: flex;
@@ -205,7 +204,6 @@ wlist(id){
     height: 150px;
 }
 .rezultat{
-    cursor: pointer;
     display: flex;
     border: 1px solid lightgrey;
     width: 1100px;
@@ -228,10 +226,15 @@ wlist(id){
 .prvired{
     display: flex;
     flex-direction: row;
+    align-items: center;
+}
+.prvired h1{
+    cursor: pointer;
 }
 .prvired button{
     height: 30px;
     padding: 4px;
     margin-left: 10px;
+    cursor: pointer;
 }
 </style>

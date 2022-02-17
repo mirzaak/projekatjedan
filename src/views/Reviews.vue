@@ -1,8 +1,8 @@
 <template>
 <Navbar />
 <div class="nav">
-<a href="#">Overview</a>
-<a href="#">Casts</a>
+<a href="#" @click="toMovie(podaci.id)">Overview</a>
+<router-link :to="{name:'People'}"><a href="#">Casts</a></router-link>
 <a href="#">Reviews</a>
 </div>
 <div class="top" v-if="podaci" @click="toMovie(podaci.id)">

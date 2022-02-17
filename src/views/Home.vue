@@ -9,7 +9,7 @@
     </div>
 </div>
 <div class="main">
-<div v-for="film in popular.results" :key="film">
+<div v-for="film in popular" :key="film">
         <img :src=" slikaurl + film.poster_path" alt="" @click="toMovie(film.id)">
         <div class="info">
         <h3>{{ film.original_title}}</h3>
@@ -29,7 +29,7 @@
     </div>
 </div>
 <div class="main">
-<div v-for="film in now_playing.results" :key="film">
+<div v-for="film in now_playing" :key="film">
         <img :src=" slikaurl + film.poster_path" alt="" @click="toMovie(film.id)">
         <div class="info">
         <h3>{{ film.original_title}}</h3>
@@ -49,7 +49,7 @@
     </div>
 </div>
 <div class="main">
-<div v-for="film in upcoming.results" :key="film">
+<div v-for="film in upcoming" :key="film">
         <img :src=" slikaurl + film.poster_path" alt="" @click="toMovie(film.id)">
         <div class="info">
         <h3>{{ film.original_title}}</h3>
@@ -69,7 +69,7 @@
     </div>
 </div>
 <div class="main">
-<div v-for="film in top_rated.results" :key="film">
+<div v-for="film in top_rated" :key="film">
         <img :src=" slikaurl + film.poster_path" alt="" @click="toMovie(film.id)">
         <div class="info">
         <h3>{{ film.original_title}}</h3>
@@ -82,8 +82,13 @@
 
 <script>
 import Navbar from './Navbar.vue'
+import axios from 'axios'
+import { mapGetters} from 'vuex'
 export default {
     components:{Navbar},
+    computed:{
+        ...mapGetters(['sesija'])
+    },
     methods:{
         toMovie(id){
             this.$router.push({ name: 'Moviedetails', params: { id: id }}) 
@@ -91,7 +96,6 @@ export default {
     },
     data(){
         return{
-            movieid:[],
             popular:null,
             nowplaying:null,
             upcoming:null,
@@ -100,31 +104,22 @@ export default {
         }
     },
 mounted(){
-
-fetch('https://api.themoviedb.org/3/movie/popular?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
-.then(response => response.json())
-.then(data => this.popular = data)
-.then(data => console.log(this.popular))
-
-
-fetch('https://api.themoviedb.org/3/movie/now_playing?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
-.then(response => response.json())
-.then(data => this.now_playing = data)
-.then(data => console.log(this.now_playing))
-
-
-fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
-.then(response => response.json())
-.then(data => this.upcoming = data)
-.then(data => console.log(this.upcoming))
-
-
-fetch('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
-.then(response => response.json())
-.then(data => this.top_rated = data)
-.then(data => console.log(this.top_rated))
-
-
+axios.get('https://api.themoviedb.org/3/movie/popular?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
+.then((response) => {
+    this.popular = response.data.results
+})
+axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
+.then((response) => {
+    this.now_playing = response.data.results
+})
+axios.get('https://api.themoviedb.org/3/movie/upcoming?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
+.then((response) => {
+    this.upcoming = response.data.results
+})
+axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d6c643adf4db40da7')
+.then((response) => {
+    this.top_rated = response.data.results
+})
 }
 }
 </script>

@@ -27,9 +27,21 @@
 </div>
 </div>
 
-<div class="navright">
+<div class="navright" v-if="!sesija">
 <router-link to="/login"><a href="#">Login</a></router-link>
-<router-link to="/login"><a href="#">Join TMDB</a></router-link>
+<a href="#" @click="signup">Join TMDB</a>
+<router-link :to="{ name: 'Search' }"><img src="../assets/search.svg" alt=""></router-link>
+</div>
+
+<div class="navrightlog" v-if="sesija">
+<div class="navdropdown">
+<a href="#">{{username}}</a>
+<div class ="navdropdowncontent">
+<router-link :to="{ name: 'Watchlist' }"><a href="#">Watchlist</a></router-link>
+<router-link :to="{name:'Ratings'}"><a href="#">Rated</a></router-link>
+<router-link :to="{name:'Home'}"><a href="#" @click="logOut">LogOut</a></router-link>
+</div>
+</div>
 <router-link :to="{ name: 'Search' }"><img src="../assets/search.svg" alt=""></router-link>
 </div>
 
@@ -40,7 +52,24 @@
 
 <router-view/>
 </template>
-
+<script>
+import {mapGetters} from 'vuex'
+import axios from 'axios'
+export default{
+  computed:{
+    ...mapGetters(['sesija','username']),
+  },
+  methods:{
+    signup(){
+      window.location.href = "https://www.themoviedb.org/signup"
+    },
+    logOut(){
+      axios.delete('https://api.themoviedb.org/3/authentication/session?api_key=0b5e8ce7494ae54d6c643adf4db40da7',{data:{session_id:this.sesija}})
+      this.$store.dispatch('sesija',null)
+    }
+  }
+}
+</script>
 <style>
 *{
   font-family: 'Source Sans Pro', sans-serif;
@@ -68,7 +97,6 @@
   height: 50px;
   width: 250px;
   align-items: center;
-
   justify-content: space-between;
   margin-left: 20px;
 }
@@ -82,21 +110,22 @@
   height: 50px;
   align-items: center;
   justify-content: space-between;
+  margin-right: 150px;
   width: 250px;
-  margin-right: 150px;  
 }
-.navright a{
-  color: white;
-  text-decoration: none;
-  padding-top: 15px;
-  padding-bottom: 15px;
+.navrightlog{
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  align-items: center;
+  justify-content: space-between;
+  margin-right: 150px;
+  width: 150px;
 }
 .navright img{
   width: 25px;
   height: 25px;
-
 }
-
 .navdropdown {
   display: flex;
   flex-direction: row;
@@ -131,6 +160,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 10px;
+  z-index:3;
 }
 .navdropdowncontent a{
   color: black;

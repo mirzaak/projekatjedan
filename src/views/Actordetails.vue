@@ -13,7 +13,7 @@
         <div class="top">
             Known for:
         </div>
-        <div class="bot" v-if="knownfor">
+        <div class="bot" v-if="knownfor"> 
             <div v-for=" film in knownfor.cast" :key="film">
                 <img :src=" slikaurl + film.poster_path" alt="">
                 <h1>{{ film.original_title }}</h1>
