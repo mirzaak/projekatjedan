@@ -217,6 +217,9 @@ mounted(){
     display: flex;
     flex-direction: column;
 }
+.firstrow h1{
+    font-family: sans-serif;
+}
 .nav{
     width: 100%;
     height: 40px;
@@ -269,6 +272,8 @@ mounted(){
 }
 .pojedinacno img{
     width: 150px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 .prvired img{
     width: 50px;
@@ -281,13 +286,15 @@ mounted(){
     border: 1px solid lightgray;
     width: 1400px;
     margin: auto;
-    border-end-end-radius: 20px;
-    border-top-right-radius: 20px;
+    border-radius: 10px;
     margin-bottom: 10px;
 }
 .main{
     display: flex;
     flex-direction: column;
+}
+.prvired img{
+    border-radius: 0;
 }
 .prvired{
     height: 50px;
@@ -297,9 +304,12 @@ mounted(){
 }
 .prvired h1{
     font-size: 20px;
+    font-family: sans-serif;
 }
 .prvired p{
     font-size: 20px;
+    font-weight: bold;
+    color: lightgray;
 }
 .opis{
     display: flex;
@@ -310,11 +320,17 @@ mounted(){
     padding-bottom: 0;
     padding-top: 0;
 }
+.opis p{
+    font-weight: bold;
+}
 .navigacija{
     height: 50px;
 
     display: flex;
     align-items: center;
+}
+.navigacija p{
+    cursor: pointer;
 }
 .navigacija img{
     height: 30px;
@@ -330,13 +346,47 @@ mounted(){
     display: flex;
     align-items: center;
     margin-right: 5px;
-    border: 1px solid lightgray;
-}
-.navigacija p{
-    cursor: pointer;
+    background: rgb(17, 162, 39);
+    color: white;
+    border-radius: 20px;
 }
 .jedan a{
+    font-family: sans-serif;
     margin: auto;
+}
+.dva a{
+    font-family: sans-serif;
+    margin: auto;
+    color: gray;
+
+}
+.tri a{
+    font-family: sans-serif;
+    margin: auto;
+    color: gray;
+
+}
+.dva{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    border: 1px solid gray;
+    border-radius: 20px;
+}
+.tri{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    border: 1px solid gray;
+    border-radius: 20px;
 }
 .blockjedan{
     width: 60px;
@@ -378,6 +428,12 @@ mounted(){
     height: 20px;
     width: 20px;
     margin-left: 10px;
+}
+.malinaslov a{
+    font-weight: bold;
+}
+.left h1{
+    font-family: sans-serif;
 }
 .right img{
     height: 20px;

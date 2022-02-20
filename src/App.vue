@@ -10,6 +10,13 @@
   }
 </script>
 
-<style scoped>
-  
+<style >
+body::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 20px;
+}
+body::-webkit-scrollbar-thumb {
+  background: lightgray;
+  border-radius: 10px;
+}
 </style>

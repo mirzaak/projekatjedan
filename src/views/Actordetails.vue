@@ -1,22 +1,56 @@
 <template>
 <Navbar />
+<div class="nav">
+<a href="#">Overview</a>
+<a href="#">Media</a>
+<a href="#">Fandom</a>
+<a href="#">Share</a>
+</div>
 <div class="up" v-if="podaci">
 <div class="main">
     <img :src=" slikaurl + podaci.profile_path " alt="">
 <div class="right">
     <div class="info" v-if="podaci">
     <h1>{{ podaci.name }}</h1>
-    <p>Biography</p>
+    <a>Biography</a>
     <p>{{ podaci.biography }}</p>
     </div>
     <div class="knownfor">
         <div class="top">
-            Known for:
+            <p>Known for</p>
         </div>
         <div class="bot" v-if="knownfor"> 
-            <div v-for=" film in knownfor.cast" :key="film">
-                <img :src=" slikaurl + film.poster_path" alt="">
-                <h1>{{ film.original_title }}</h1>
+            <div class="kartica" @click="toMovie(this.knownfor.cast[0].id)">
+                <img :src=" slikaurl + this.knownfor.cast[0].poster_path" alt="">
+                <h1>{{ this.knownfor.cast[0].original_title }}</h1>
+            </div>
+            <div class="kartica" @click="toMovie(this.knownfor.cast[1].id)">
+                <img :src=" slikaurl + this.knownfor.cast[1].poster_path" alt="">
+                <h1>{{ this.knownfor.cast[1].original_title }}</h1>
+            </div>
+            <div class="kartica" @click="toMovie(this.knownfor.cast[2].id)">
+                <img :src=" slikaurl + this.knownfor.cast[2].poster_path" alt="">
+                <h1>{{ this.knownfor.cast[2].original_title }}</h1>
+            </div>
+            <div class="kartica" @click="toMovie(this.knownfor.cast[3].id)">
+                <img :src=" slikaurl + this.knownfor.cast[3].poster_path" alt="">
+                <h1>{{ this.knownfor.cast[3].original_title }}</h1>
+            </div>
+            <div class="kartica" @click="toMovie(this.knownfor.cast[4].id)">
+                <img :src=" slikaurl + this.knownfor.cast[4].poster_path" alt="">
+                <h1>{{ this.knownfor.cast[4].original_title }}</h1>
+            </div>
+            <div class="kartica" @click="toMovie(this.knownfor.cast[5].id)">
+                <img :src=" slikaurl + this.knownfor.cast[5].poster_path" alt="">
+                <h1>{{ this.knownfor.cast[5].original_title }}</h1>
+            </div>
+            <div class="kartica" @click="toMovie(this.knownfor.cast[6].id)">
+                <img :src=" slikaurl + this.knownfor.cast[6].poster_path" alt="">
+                <h1>{{ this.knownfor.cast[6].original_title }}</h1>
+            </div>
+            <div class="kartica" @click="toMovie(this.knownfor.cast[7].id)">
+                <img :src=" slikaurl + this.knownfor.cast[7].poster_path" alt="">
+                <h1>{{ this.knownfor.cast[7].original_title }}</h1>
             </div>
         </div>
     </div>
@@ -33,7 +67,7 @@
 <h2>Known Credits</h2>
 <p>{{ podaci.popularity }}</p>
 <h2>Gender</h2>
-<p></p>
+<p>{{podaci.gender}}</p>
 <h2>Birthdate</h2>
 <p>{{ podaci.birthday }}</p>
 <h2>Place of Birth</h2>
@@ -43,11 +77,13 @@
 </div>
 <div class="desno" v-if="knownfor">
 <h1>Acting</h1>
+<div class="moviess">
 <div class="movie" v-for=" movie in knownfor.cast " :key="movie">
     <p>{{ movie.release_date }}</p>
-    <p>{{ movie.original_title }}</p>
+    <p @click="toMovie(movie.id)">{{ movie.original_title }}</p>
     <a>as {{ movie.character}}</a>
 
+</div>
 </div>
 </div>
 </div>
@@ -57,6 +93,11 @@
 import Navbar from './Navbar.vue'
 export default {
     components:{Navbar},
+    methods:{
+        toMovie(id){
+            this.$router.push({ name: 'Moviedetails', params: { id: id }})            
+        },
+    },
     data(){
         return{
             podaci:null,
@@ -81,25 +122,39 @@ export default {
 </script>
 
 <style scoped>
+.nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 100%;
+    border-bottom: 1px solid lightgray;
+}
+.nav a{
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-right: 20px;
+}
 .main img{
-    width: 250px;
+    width: 300px;
+    border-radius: 20px;
 }
 .main{
     align-items: center;
     display: flex ;
-    width: 1400px;
-    height: 400px;
+    width: 1350px;
+    height: 500px;
     margin: auto;
 }
 .info{
-    height: 170px;
-    width: 1130px;
-
+    height: 210px;
+    width: 950px;
     overflow: hidden;
     flex-direction: column;
 }
 .knownfor{
-
     width: 1130px;
     height: 200px;
     margin-top: 5px;
@@ -110,15 +165,27 @@ export default {
     margin-left: 20px;
 }
 .info h1{
-    margin-bottom:15px;
+    margin-bottom:25px;
+    font-family: sans-serif;
+    font-weight: bold;
 }
-.info p{
+.info a{
+    font-weight: bold;
+    font-family: sans-serif;
     margin-bottom: 10px;
 }
+.info p{
+    margin-top: 10px;
+    font-weight: 600;
+}
 .knownfor img{
-    width: 90px;
-    margin-right: 13px;
+    width: 105px;
     border-radius: 5px;
+}
+.knownfor p{
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 15px;
 }
 .bot{
     display: flex;
@@ -127,43 +194,65 @@ export default {
     overflow: hidden;
 }
 .bot h1{
-    font-size: 10px;
-    width: 90px;
+    font-size: 15px;
+    width: 105px;
     text-align: center;
 }
 .down{
-    width: 1400px;
+    width: 1350px;
     margin: auto;
     display: flex;
     margin-bottom: 100px;
 }
 .lijevo{
     display: flex;
-    width: 250px;
+    width: 300px;
     height: 400px;
-
     flex-direction: column;
+}
+.lijevo h1{
+    font-size: 25px;
+    font-family: sans-serif;
 }
 .lijevo h2{
     font-size: 15px;
     margin-top: 10px;
+    font-family: sans-serif;
+}
+.lijevo p{
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 .desno{
     display: flex;
-    width: 1150px;
-
     flex-direction: column;
 }
+.desno h1{
+    margin-left: 20px;
+    font-size: 25px;
+    font-family: sans-serif;
+    margin-bottom: 10px;
+}
 .movie{
-    width: 1150px;
-    border: 1px solid lightgray;
-    border-radius: 5px;
+    width: 890px;
     height: 30px;
     display: flex;
     align-items: center;
+    margin-left: 20px;
+    margin-bottom: 5px;
 }
 .movie p{
     margin-right: 20px;
     font-weight: bold;
+}
+.kartica{
+    cursor: pointer;
+    width: 105px;
+    margin-right: 10px;
+}
+.moviess{
+    margin-left: 20px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
 }
 </style>

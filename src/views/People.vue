@@ -72,6 +72,7 @@ h2{
     flex-direction: column;
     text-align: center;
     cursor: pointer;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);    
 }
 .glumac h1{
     font-size: 20px;

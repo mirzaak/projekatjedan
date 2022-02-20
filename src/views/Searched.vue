@@ -1,7 +1,10 @@
 <template>
 <Navbar />
 <div class="searchbar">
-<input type="text" placeholder="Search..." name="" id="" @keyup.enter="submit" v-model="query" onchange='saveValue(this)'>
+<div class="zajedno"> 
+<img src="../assets/search.svg" alt="">
+<input type="text" placeholder="Search..." name="" id="" @keyup.enter="submit" v-model="query">
+</div>
 </div>
 <div class="all" v-if="podaci">
     <div class="left">
@@ -22,7 +25,7 @@
                     <button @click="wlist(podatak.id)" v-if="sesija">Watchlist</button>
                     <button @click="favorite(podatak.id)" v-if="sesija">Favorite</button>
                     </div>
-                    <p>{{ podatak.release_date }}{{ podatak.first_air_date }}</p>
+                    <a>{{ podatak.release_date }}{{ podatak.first_air_date }}</a>
                     <div class="overview">
                     <p>{{ podatak.overview }}</p>
                 </div>
@@ -121,15 +124,25 @@ wlist(id){
     width: 100%;
     height: 40px;
     border: 1px solid lightgray;
-    margin: auto;
 }
 .searchbar input{
     display: flex;
-    width: 1400px;
-    height: 25px;
+    width: 1300px;
+    height: 38px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+
+}
+.zajedno{
     margin: auto;
-    border: 1px solid lightgray;
-    border-radius: 2px;
+    display: flex;
+}
+.searchbar img{
+    margin: auto;
+    margin-right: 0;
+    height: 15px;
+    align-self: center;
 }
 .all{
     display: flex;
@@ -146,24 +159,29 @@ wlist(id){
     color: white;
     font-size: 10px;
     margin-bottom: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 .naslov h1{
     margin-left: 20px;
+    font-family: sans-serif;
+    font-size: 18px;
 }
 .left{
     display: flex;
     flex-direction: column;
     width: 250px;
-    height: 340px;
+    height: 105px;
     margin: 0;
-    border: 1px solid lightgrey;
-    border-end-end-radius: 10px;
-    border-end-start-radius: 10px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    overflow: hidden;
 }
 .left a{
     margin-left: 20px;
     color: black;
     text-decoration: none;
+    font-weight: bold;
 }
 .kategorija:hover{
     background: lightgrey;
@@ -197,11 +215,14 @@ wlist(id){
 .rezultat img{
     width: 100px;
     cursor: pointer;
+    border-top-left-radius: 10px;
+    border-end-start-radius: 10px;
 }
 .main{
     display: flex;
     flex-direction: row;
     height: 150px;
+    align-items: center;
 }
 .rezultat{
     display: flex;
@@ -209,14 +230,13 @@ wlist(id){
     width: 1100px;
     margin-left: 50px;
     margin-bottom: 20px;
-    border-end-end-radius: 10px;
-    border-top-right-radius: 10px;
-    box-shadow: 5px 5px 10px 0.1px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
 }
 .info{
     margin-left: 20px;
     overflow: hidden;
-    align-self: center;
+
 }
 .overview{
     width: 950px;
@@ -230,6 +250,17 @@ wlist(id){
 }
 .prvired h1{
     cursor: pointer;
+    font-family: sans-serif;
+    font-size: 20px;
+}
+.info a{
+    font-weight: bold;
+    color: lightgray;
+}
+.info p{
+    margin-top: 10px;
+    font-weight: bold;
+
 }
 .prvired button{
     height: 30px;

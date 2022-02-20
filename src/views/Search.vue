@@ -1,7 +1,10 @@
 <template>
 <Navbar />
 <div class="searchbar">
+<div class="zajedno"> 
+<img src="../assets/search.svg" alt="">
 <input type="text" placeholder="Search..." name="" id="" @keyup.enter="submit" v-model="query">
+</div>
 </div>
 <div class="all">
     <div class="left">
@@ -48,15 +51,25 @@ methods:{
     width: 100%;
     height: 40px;
     border: 1px solid lightgray;
-    margin: auto;
 }
 .searchbar input{
     display: flex;
-    width: 1400px;
-    height: 25px;
+    width: 1300px;
+    height: 38px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+
+}
+.zajedno{
     margin: auto;
-    border: 1px solid lightgray;
-    border-radius: 2px;
+    display: flex;
+}
+.searchbar img{
+    margin: auto;
+    margin-right: 0;
+    height: 15px;
+    align-self: center;
 }
 .all{
     display: flex;
@@ -73,20 +86,28 @@ methods:{
     color: white;
     font-size: 10px;
     margin-bottom: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 .naslov h1{
     margin-left: 20px;
+    font-family: sans-serif;
+    font-size: 18px;
 }
 .left{
     display: flex;
     flex-direction: column;
     width: 250px;
     margin: 0;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    overflow: hidden;
 }
 .left a{
     margin-left: 20px;
     color: black;
     text-decoration: none;
+    font-weight: bold;
 }
 .kategorija:hover{
     background: lightgrey;
@@ -122,5 +143,6 @@ methods:{
     align-self: flex-start;
     margin-left: 20px;
     margin-top: 20px;
+    font-weight: bold;
 }
 </style>

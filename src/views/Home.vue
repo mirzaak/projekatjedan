@@ -78,6 +78,7 @@
 </div>
 </div>
 </div>
+<Footer />
 </template>
 
 <script>
@@ -144,19 +145,26 @@ axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d
    width: 150px;
    margin-right: 19px;
    cursor: pointer;
+   border-radius: 10px;
 }
 .info{
     width: 150px;
     text-align: center;
     
 }
-.info p,h3{
+.info p{
     font-size: 16px;
+}
+.info h3{
+    font-weight: 900;
 }
 .top{
     display: flex;
     height: 50px;
     align-items: center;
+}
+.top h1{
+    font-weight: bold;
 }
 .pill{
     display: flex;
@@ -166,6 +174,7 @@ axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d
     border: 1px solid #0d253f;
 }
 .pill a{
+    font-weight: bold;
     text-decoration: none;
     margin: 10px;
     margin-right: 10px;
@@ -175,6 +184,7 @@ axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d
     border-radius: 20px;
     padding: 5px;
     margin-right: 10px;
+    border: 1px solid #0d253f;
 }
 .jedan a{
         color: white;
@@ -187,6 +197,7 @@ axios.get('https://api.themoviedb.org/3/movie/top_rated?api_key=0b5e8ce7494ae54d
     padding: 10px;
     margin-right: 20px;
     margin-left: 5px;
+    color: black;
 }
 
 

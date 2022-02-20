@@ -3,31 +3,34 @@
 <div class="nav">
 <a href="#">Overview</a>
 <a href="#">Casts</a>
-<a href="#">Reviews</a>
+<router-link :to="{name:'Reviewstv'}"><a href="#">Reviews</a></router-link>
 </div>
+<div class="back">
 <div class="main" v-if="podaci">
-<img :src=" slikaurl + podaci.poster_path" alt="">
-<div class="info">
-<h1>{{ podaci.original_name }}</h1>
-<a href="#" @click="goBack">-Back to Main Menu</a>
+<img  @click="goBack" :src=" slikaurl + podaci.poster_path" alt="">
+<div class="infomain">
+<h1  @click="goBack">{{ podaci.original_name }}</h1>
+<a href="#" @click="goBack">Back to Main Menu</a>
 </div>
 </div>
-
+</div>
 <div class="sezone" v-if="podaci">
 <div class="pojedinacno">
 <div class="sezona" v-for="sezona in podaci.seasons" :key="sezona" @click="toSeason(sezona.season_number)">
-<img :src=" slikaurl + sezona.poster_path" alt="">
+<img :src=" slikaurl + sezona.poster_path" alt=""  @click="toSeason(sezona.season_number)">
 <div class="info">
 <div class="prvired">
 <h1>{{ sezona.name}}</h1>
 <p>{{ sezona.air_date }}</p>
-<p>{{ sezona.episode_count }}</p>
+<p>| {{ sezona.episode_count }} Episodes</p>
 </div>
 <p>{{ sezona.overview}}</p>
 </div>
+
 </div>
 </div>
 </div>
+
 
 </template>
 
@@ -74,17 +77,22 @@ mounted(){
     text-decoration: none;
 }
 .main img{
-    width: 120px;
+    height: 87px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 .sezone img {
     width: 100px;
     height: 150px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 .sezone{
     display: flex;
-    flex-direction: column;
-    width:1500px;
+    width:1400px;
     margin: auto;
+    align-items: center;
 
 }
 .pojedinacno{
@@ -93,24 +101,65 @@ mounted(){
 }
 .sezona{
     display: flex;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    border-bottom: 1px solid gray;
+    border-bottom: 1px solid lightgray;
     cursor: pointer;
     align-items: center;
+    width: 1400px;
+    margin: auto;
 }
-.info{
+.infomain{
     margin-left: 20px;
 }
 .main{
     display: flex;
     margin: auto;
     width: 1500px;
-    border-top: 1px solid black;
+    align-items: center;
+    height: 100px;
 }
-.info a{
+.infomain a{
+    font-family: sans-serif;
+    font-weight: bold;
     text-decoration: none;
-    color: black;
+    color: gray;
+    font-size: 15px;
+}
+.infomain h1{
+    font-family: sans-serif;
+    color: white;
+    cursor: pointer;
+}
+.infomain h1:hover{
+    color: gray;
+}
+.info{
+    margin-left: 20px;
+}
+.info h1{
+    font-family: sans-serif;
+    font-size: 25px;
+    margin-right: 10px;
+}
+.info p{
+    font-weight: bold;
+    margin-left: 3px;
+}
+.prvired p{
+    margin-top: 3px;
+    font-family: sans-serif;
+}
+.prvired{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.back{
+    width: 100%;
+    background: lightgray;
+}
+.linija{
+    border-bottom: 1px solid lightgray;
+    width: 100%;
 }
 
 </style>

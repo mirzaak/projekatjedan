@@ -66,8 +66,8 @@
         <img :src=" slikaurl + podatak.poster_path" alt="">
         <div class="info">
             <h3>{{ podatak.original_title}}</h3>
-            <h3>{{ podatak.release_date}}</h3>
-            <p></p>
+            <p>{{ podatak.release_date}}</p>
+
         </div>
     </div>
   </div>
@@ -243,7 +243,6 @@ console.log(this.avaliableRegions)
     display: flex;
     flex-direction: row;
     width: 1400px;
-    height: 1600px;
     margin:auto;
 }
 .naslov h1{
@@ -257,6 +256,8 @@ console.log(this.avaliableRegions)
 }
 .card img{
     width: 150px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .right{
@@ -273,13 +274,22 @@ console.log(this.avaliableRegions)
     display: flex;
     flex-direction: column;
     margin: 20px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+    margin-bottom: none;
 }
 .info{
     display: flex;
-    width: 150px;
-    height: 90px;
-    text-align: center;
+    width: 130px;
+    text-align: left;
     flex-direction: column;
+    padding: 10px;
+    padding-bottom: none;
+}
+.info h3{
+  font-family: sans-serif;
+  font-size: 15px;
 }
 .left{
     display:flex;
@@ -301,6 +311,10 @@ console.log(this.avaliableRegions)
     border: none;
     background: white;
     border: 1px solid lightgray;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+    font-weight: bold;
+    text-align: left;
+    font-family: sans-serif;
 }
 .minifilter{
     display: flex;
@@ -383,8 +397,10 @@ console.log(this.avaliableRegions)
   margin-top: 20px;
   border-radius: 30px;
   border: none;
-  background: #01b4e4;
-  color: white;
+  background: lightgray;
+  color: gray;
+  font-family: sans-serif;
+  font-weight: bold;
   font-size: 15px;
   cursor: pointer;
 }

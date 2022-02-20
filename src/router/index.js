@@ -23,6 +23,9 @@ import Actordetails from '../views/Actordetails.vue'
 import People from '../views/People.vue'
 import Peoplepage from '../views/Peoplepage.vue'
 import Reviews from '../views/Reviews.vue'
+import Reviewstv from '../views/Reviewstv.vue'
+import Cast from '../views/Cast.vue'
+import Casttv from '../views/Casttv.vue'
 
 
 const routes = [
@@ -146,6 +149,21 @@ const routes = [
     path: '/movie/:id/reviews',
     name: 'Reviews',
     component: Reviews
+  },
+  {
+    path: '/tv/:id/reviews',
+    name: 'Reviewstv',
+    component: Reviewstv
+  },
+  {
+    path: '/movie/:id/cast',
+    name: 'Cast',
+    component: Cast
+  },
+  {
+    path: '/tv/:id/cast',
+    name: 'Casttv',
+    component: Casttv
   },
   
 ]

@@ -3,9 +3,20 @@
 <div class="nav">
 <a href="#">Overview</a>
 <a href="#">Casts</a>
-<a href="#">Reviews</a>
+<router-link :to="{name:'Reviewstv'}"><a href="#">Reviews</a></router-link>
 </div>
-
+<div class="back">
+<div class="uvod" v-if="podaci">
+<img @click="goBack" :src=" slikaurl + podaci.poster_path" alt="">
+<div class="infouvod">
+<h1 @click="goBack">{{podaci.name}}</h1>
+<a href="#" @click="goBack">Back to Seasons List</a>
+</div>
+</div>
+</div>
+<div class="naslov" v-if="podaci">
+<h1>Episodes {{podaci.episodes.length}}</h1>
+</div>
 <div v-if="podaci">
 <div class="epizoda" id="epizoda" v-for=" podatak in podaci.episodes" :key="podatak" >
 <div class="main">
@@ -26,13 +37,13 @@
   <a href="#">Report</a>
 </div>
 <div class="panelinfo">
-<div class="paneldesno">
+<div class="panellijevo">
     <h1>Crew:</h1>
 <div v-for="crew in podatak.crew" :key="crew">
   <p>{{ crew.name }} - {{ crew.job }}</p>  
 </div>
 </div>
-<div class="panellijevo">
+<div class="paneldesno">
 <h1>Guest Stars:</h1>
 <div v-for=" stars in podatak.guest_stars" :key="stars">
 <p>{{ stars.name}} - {{ stars.known_for_department }}</p>
@@ -51,6 +62,11 @@
 import Navbar from './Navbar.vue'
 export default {
     components:{Navbar},
+    methods:{
+        goBack(){
+            this.$router.go(-1)
+        },
+    },
     computed:{
       expand(){
   var expand = document.getElementsByClassName("expand");
@@ -103,24 +119,34 @@ mounted(){
   flex-direction: column;
   margin: auto;
   margin-bottom: 20px;
-    border: 1px solid lightgray;
+  border: 1px solid lightgray;
+  border-top-left-radius: 10px;
+  border-radius: 10px;
 }
 .epizoda img{
-  width: 300px;
-  height: 180px;
-  margin-left: 20px;
+  width: 227px;
+  height: 127px;
+  border-top-left-radius: 10px;
 }
 .info{
   display: flex;
   flex-direction: column;
-  padding: 40px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.info h1{
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+.info p{
+  font-weight: bold;
 }
 .main{
+  align-items: center;
   display: flex;
   flex-direction: row;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  
+  border-top-left-radius: 10px;
 }
 .panel{
   width: 1500px;
@@ -128,30 +154,41 @@ mounted(){
   flex-direction: column;
   justify-content: space-between;
 }
+.panel h1{
+  font-family: sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+.panel p{
+  font-weight: bold;
+}
 .expand{
   width: 1500px;
-  height: 50px;
+  height: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
   cursor: pointer;
-}
-.expand:hover{
-  background: grey;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 12px;
 }
 .paneldesno{
+  padding: 20px;
   display: flex;
   flex-direction: column;
   width: 400px;
-  text-align: center;
+  margin-right: 600px;
+  text-align: left;
   margin-left: 100px;
 }
 .panellijevo{
+  padding: 20px;
   display: flex;
   flex-direction: column;
   width: 400px;
-  text-align: center;
+  text-align: left;
   margin-right: 100px;
 }
 .panelnav{
@@ -163,9 +200,11 @@ mounted(){
   border-bottom: 1px solid lightgray;
 }
 .panelnav a{
+  font-weight: bold;
   margin-left: 80px;
   margin-right: 80px;
-  color: black;
+  color: lightgray;
+  font-family: sans-serif;
   text-decoration: none;
 }
 .panelinfo{
@@ -180,5 +219,49 @@ mounted(){
   display: flex;
   width: 1500px;
   height: 150px;
+}
+.infouvod{
+    margin-left: 20px;
+}
+.uvod{
+    display: flex;
+    margin: auto;
+    width: 1500px;
+    align-items: center;
+    height: 100px;
+    margin-bottom: 20px;
+}
+.infouvod a{
+    font-family: sans-serif;
+    font-weight: bold;
+    text-decoration: none;
+    color: gray;
+    font-size: 15px;
+}
+.infouvod h1{
+    font-family: sans-serif;
+    color: white;
+    cursor: pointer;
+}
+.infouvod h1:hover{
+  color: gray;
+}
+.uvod img{
+    height: 87px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.back{
+  background: lightgray;
+  width: 100%;
+}
+.naslov{
+  width: 1500px;
+  margin: auto;
+}
+.naslov h1{
+  font-family: sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 </style>

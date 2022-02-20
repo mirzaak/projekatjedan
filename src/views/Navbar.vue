@@ -90,6 +90,7 @@ export default{
 .navnavbar a{
   color: white;
   text-decoration: none;
+  font-weight: bold;
 }
 .navleft{
   display: flex;

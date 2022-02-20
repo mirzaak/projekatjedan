@@ -35,7 +35,7 @@
         <div class="left">
             <h1>My Ratings</h1>
             <div class="tritacke"></div>
-            <div >
+            <div class="malinaslov">
                 <router-link :to="{ name: 'Ratings' }"><a href="#">Movies</a><a v-if="ratedlength" href="#">{{ratedlength.results.length}}</a></router-link>
                 <router-link :to="{ name: 'Ratingstv' }"><a href="#">TV</a><a v-if=" ratedtvlength" href="#">{{ratedtvlength.results.length}}</a></router-link>
             </div>
@@ -66,8 +66,8 @@
             </div>
             <div class="navigacija" v-if="rated">
             <div class="jedan"><a>{{ podatak.rating }}</a></div><p>Your Rating</p>
-            <div class="jedan" @click="favorite(podatak.rating)"><a>F</a></div><p @click="favorite(podatak.rating)">Favorite</p>
-            <div class="jedan" @click="removeRating(podatak.id)"><a>X</a></div><p @click="removeRating(podatak.id)">Remove</p>
+            <div class="dva" @click="favorite(podatak.rating)"><a>F</a></div><p @click="favorite(podatak.rating)">Favorite</p>
+            <div class="tri" @click="removeRating(podatak.id)"><a>X</a></div><p @click="removeRating(podatak.id)">Remove</p>
 
 
 
@@ -190,6 +190,9 @@ mounted(){
     width: 100%;
     margin: auto;
 }
+.firstrow h1{
+    font-family: sans-serif;
+}
 .content{
     display: flex;
     flex-direction: row;
@@ -263,6 +266,8 @@ mounted(){
 }
 .pojedinacno img{
     width: 150px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 .prvired img{
     width: 50px;
@@ -275,13 +280,15 @@ mounted(){
     border: 1px solid lightgray;
     width: 1400px;
     margin: auto;
-    border-end-end-radius: 20px;
-    border-top-right-radius: 20px;
+    border-radius: 10px;
     margin-bottom: 10px;
 }
 .main{
     display: flex;
     flex-direction: column;
+}
+.prvired img{
+    border-radius: 0;
 }
 .prvired{
     height: 50px;
@@ -291,9 +298,12 @@ mounted(){
 }
 .prvired h1{
     font-size: 20px;
+    font-family: sans-serif;
 }
 .prvired p{
     font-size: 20px;
+    font-weight: bold;
+    color: lightgray;
 }
 .opis{
     display: flex;
@@ -303,6 +313,9 @@ mounted(){
     padding: 20px;
     padding-bottom: 0;
     padding-top: 0;
+}
+.opis p{
+    font-weight: bold;
 }
 .navigacija{
     height: 50px;
@@ -327,10 +340,47 @@ mounted(){
     display: flex;
     align-items: center;
     margin-right: 5px;
-    border: 1px solid lightgray;
+    background: rgb(17, 162, 39);
+    color: white;
+    border-radius: 20px;
 }
 .jedan a{
+    font-family: sans-serif;
     margin: auto;
+}
+.dva a{
+    font-family: sans-serif;
+    margin: auto;
+    color: gray;
+
+}
+.tri a{
+    font-family: sans-serif;
+    margin: auto;
+    color: gray;
+
+}
+.dva{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    border: 1px solid gray;
+    border-radius: 20px;
+}
+.tri{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    border: 1px solid gray;
+    border-radius: 20px;
 }
 .blockjedan{
     width: 60px;
@@ -372,6 +422,12 @@ mounted(){
     height: 20px;
     width: 20px;
     margin-left: 10px;
+}
+.malinaslov a{
+    font-weight: bold;
+}
+.left h1{
+    font-family: sans-serif;
 }
 .right img{
     height: 20px;

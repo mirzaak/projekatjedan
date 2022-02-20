@@ -2,14 +2,14 @@
 <Navbar />
 <div class="nav">
 <a href="#" @click="toMovie(podaci.id)">Overview</a>
-<router-link :to="{name:'Cast',params:{id:id}}"><a href="#">Casts</a></router-link>
+<a  @click="toMovie(podaci.id)" href="#">Casts</a>
 <a href="#">Reviews</a>
 </div>
 <div class="back">
 <div class="main" v-if="podaci">
-<img  @click="toMovie(podaci.id)" :src=" slikaurl + podaci.poster_path" alt="">
+<img :src=" slikaurl + podaci.poster_path" alt="">
 <div class="infomain">
-<h1  @click="toMovie(podaci.id)">{{ podaci.original_title }}</h1>
+<h1>{{ podaci.original_name }}</h1>
 <a href="#" @click="toMovie(podaci.id)">Back to Main Menu</a>
 </div>
 </div>
@@ -41,7 +41,7 @@ export default {
     },
     methods:{
         toMovie(id){
-            this.$router.push({ name: 'Moviedetails', params: { id: id }})            
+            this.$router.push({ name: 'Tvdetails', params: { id: id }})            
         },
         
     },
@@ -54,7 +54,7 @@ export default {
     },
 components:{Navbar},
 mounted(){
-    fetch('https://api.themoviedb.org/3/movie/' + this.id + '?api_key=0b5e8ce7494ae54d6c643adf4db40da7&append_to_response=credits,keywords,reviews')
+    fetch('https://api.themoviedb.org/3/tv/' + this.id + '?api_key=0b5e8ce7494ae54d6c643adf4db40da7&append_to_response=credits,keywords,reviews')
     .then(res => res.json())
     .then(data => this.podaci = data)
     .then(data => console.log(this.podaci))

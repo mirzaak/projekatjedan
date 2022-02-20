@@ -2,7 +2,7 @@
 <Navbar />
 <div class="nav" v-if="podaci">
 <a href="#">Overview</a>
-<router-link :to="{name:'People'}"><a href="#">Casts</a></router-link>
+<router-link :to="{name:'Cast',params:{id:id}}"><a href="#">Casts</a></router-link>
 <router-link :to="{name:'Reviews'}"><a href="#">Reviews</a></router-link>
 </div>
 <div class="top" v-if="podaci">
@@ -26,7 +26,7 @@
 <div class="vicons">
 <img src="../assets/Rectangle.svg" alt="">
 <h3>{{ podaci.vote_average }}</h3>
-<p>User score</p>
+<a>User score</a>
 <div class="micons" v-if="sesija">
 <div class="rate" @click="favorite(podaci.id)"><img src="../assets/Rectangle.svg" alt=""><img class="mslike" src="../assets/heart.svg" alt="">
 </div>
@@ -39,7 +39,7 @@
 </div>
 </div>
 </div>
-<p>Overview</p>
+<a>Overview</a>
 <p>{{podaci.overview}}</p>
 <div class="bitniglumci">
 <a href="#">{{ podaci.credits.cast[0].name }}</a>
@@ -57,25 +57,65 @@
 
 <div class="ostalo" v-if="podaci">
 <div class="left" v-if="podaci">
-<div class="viewmore" v-if="podaci">
-<router-link :to="{ name: 'People' }"><a href="#">View more</a></router-link>
-</div>
 <div class="naslov" v-if="podaci">
 <h1>Top Billed Cast</h1>
 </div>
 <div class="glumci" v-if="podaci">
-<div class="glumac" v-for="glumac in podaci.credits.cast" :key="glumac" @click="toActor(glumac.id)">
-<img :src=" slikaurl + glumac.profile_path" alt="">
-<div class="infoglumci">
-<h1>{{ glumac.original_name }}</h1>
-<p>{{ glumac.known_for_department }}</p>
+
+<div class="card" @click="toActor(this.podaci.credits.cast[0].id)">
+<img :src=" slikaurl + this.podaci.credits.cast[0].profile_path" alt="">
+<h2>{{this.podaci.credits.cast[0].original_name}}</h2>
+<p>{{this.podaci.credits.cast[0].character}}</p>
 </div>
+<div class="card" @click="toActor(this.podaci.credits.cast[1].id)">
+<img :src=" slikaurl + this.podaci.credits.cast[1].profile_path" alt="">
+<h2>{{this.podaci.credits.cast[1].original_name}}</h2>
+<p>{{this.podaci.credits.cast[1].character}}</p>
 </div>
+<div class="card" @click="toActor(this.podaci.credits.cast[2].id)">
+<img :src=" slikaurl + this.podaci.credits.cast[2].profile_path" alt="">
+<h2>{{this.podaci.credits.cast[2].original_name}}</h2>
+<p>{{this.podaci.credits.cast[2].character}}</p>
+</div>
+<div class="card" @click="toActor(this.podaci.credits.cast[3].id)">
+<img :src=" slikaurl + this.podaci.credits.cast[3].profile_path" alt="">
+<h2>{{this.podaci.credits.cast[3].original_name}}</h2>
+<p>{{this.podaci.credits.cast[3].character}}</p>
+</div>
+<div class="card" @click="toActor(this.podaci.credits.cast[4].id)">
+<img :src=" slikaurl + this.podaci.credits.cast[4].profile_path" alt="">
+<h2>{{this.podaci.credits.cast[4].original_name}}</h2>
+<p>{{this.podaci.credits.cast[4].character}}</p>
+</div>
+<div class="card" @click="toActor(this.podaci.credits.cast[5].id)">
+<img :src=" slikaurl + this.podaci.credits.cast[5].profile_path" alt="">
+<h2>{{this.podaci.credits.cast[5].original_name}}</h2>
+<p>{{this.podaci.credits.cast[5].character}}</p>
+</div>
+<div class="card" @click="toActor(this.podaci.credits.cast[6].id)">
+<img :src=" slikaurl + this.podaci.credits.cast[6].profile_path" alt="">
+<h2>{{this.podaci.credits.cast[6].original_name}}</h2>
+<p>{{this.podaci.credits.cast[6].character}}</p>
+</div>
+<div class="card" @click="toActor(this.podaci.credits.cast[7].id)">
+<img :src=" slikaurl + this.podaci.credits.cast[7].profile_path" alt="">
+<h2>{{this.podaci.credits.cast[7].original_name}}</h2>
+<p>{{this.podaci.credits.cast[7].character}}</p>
+</div>
+<div class="card" @click="toActor(this.podaci.credits.cast[88].id)">
+<img :src=" slikaurl + this.podaci.credits.cast[8].profile_path" alt="">
+<h2>{{this.podaci.credits.cast[8].original_name}}</h2>
+<p>{{this.podaci.credits.cast[8].character}}</p>
+</div>
+<div class="viewmore">
+<a href="#" @click="toCast(id)">Viewmore</a>
+</div>
+
 </div>
 
 <div class="drugidio" v-if="podaci.reviews.results[0]">
-<a href="#">Full Cast and Crew</a>
-<img src="../assets/Rectangle.svg" alt="">
+<a href="#" @click="toCast(id)">Full Cast and Crew</a>
+<img class="linija" src="../assets/Rectangle.svg" alt="">
 <router-link :to="{name:'Reviews'}"><a href="#">Reviews</a></router-link>
 <div class="reviews" v-if="podaci">
 <div class="prvired" v-if="podaci">
@@ -137,6 +177,9 @@ export default {
         toActor(id){
             this.$router.push({ name: 'Actordetails', params: { person: id }}) 
         },
+        toCast(id){
+            this.$router.push({ name: 'Cast', params: { id: id }}) 
+        },
         toReview(id){
             this.$router.push({ name: 'Reviews', params: { id: id }}) 
         },
@@ -180,10 +223,11 @@ watchlist(id){
         }
     },
 mounted(){
-    fetch('https://api.themoviedb.org/3/movie/' + this.id + '?api_key=0b5e8ce7494ae54d6c643adf4db40da7&append_to_response=credits,keywords,reviews')
-    .then(res => res.json())
-    .then(data => this.podaci = data)
-    .then(data => console.log(this.podaci))
+    axios.get('https://api.themoviedb.org/3/movie/' + this.id + '?api_key=0b5e8ce7494ae54d6c643adf4db40da7&append_to_response=credits,keywords,reviews')
+    .then((response)=>{
+    this.podaci = response.data
+    console.log(response.data)
+    })
 
 }
 }
@@ -201,17 +245,20 @@ mounted(){
 .nav a{
     color: black;
     text-decoration: none;
+    font-weight: bold;
 }
 .top{
     display: flex;
     width: 100%;
     height: 500px;
     overflow: hidden;
+    justify-content: center;
 }
 .iza img{
     width: 100%;
     filter: brightness(15%);
     z-index: 1;
+    position: relative;
 }
 .iza{
     width: 100%;
@@ -224,21 +271,30 @@ mounted(){
     display: flex;
     align-items: center;
     position: absolute;
-    width: 1400px;
+    width: 1350px;
     height: 500px;
-    margin: auto;
-    margin-left: 50px;
+    position: absolute;
     z-index: 2;
 }
 .info{
     color: white;
     margin-left: 20px;
 }
+.info h1{
+    font-family: sans-serif;
+}
+.info a{
+    font-weight: bold;
+}
+.info p{
+    font-weight: 500;
+}
 .drugired{
     display: flex;
 }
 .drugired p{
     margin-right: 20px;
+    font-weight: bold;
 }
 
 .icons img{
@@ -275,7 +331,7 @@ mounted(){
     margin-right: 20px;
     cursor: pointer;
 }
-.vicons p{
+.vicons a{
     display: flex;
     margin-right: 20px;
     margin-top: 5px;
@@ -289,10 +345,12 @@ mounted(){
 }
 .bitniglumci p{
     margin-bottom: 10px;
+    font-size: lighter;
 }
 .bitniglumci a{
     text-decoration: none;
     color: white;
+    font-weight: bold;
 }
 .top p{
     margin-bottom: 10px;
@@ -301,10 +359,9 @@ mounted(){
     display: flex;
     flex-direction: row;
     margin: auto;
-    width: 1500px;
-
+    width: 1350px;
     margin-top: 20px;
-    height: 1000px;
+    margin-bottom: 50px;
 }
 .left{
     display: flex;
@@ -315,58 +372,34 @@ mounted(){
     overflow: hidden;
 }
 .glumci img{
-    width: 150px;
-    margin-right: 20px;
-    border: 1px solid lightgray;
-    border-radius: 5px;
-    
+    object-fit: cover;
+    object-position: 100% 15%;
+    height: 175px;
+    width: 140px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 .glumci{
     display: flex;
-}
-.infoglumci{
-    display: flex;
-    flex-direction: column;
-    width: 150px;
-
-    border: 1px solid lightgray;
-    border-end-end-radius: 5px;
-    border-end-start-radius: 5px;
-
-}
-.infoglumci h1{
-    font-size: 20px;
+    overflow:auto;
+    
 }
 .infoglumci p{
     margin-bottom: 20px;
 }
 .naslov h1{
-    margin: 10px;
-    font-size: 25px;
-}
-.viewmore{
-    display: flex;
-    align-items: center;
-    margin-top: 52px;
-    margin-left: 860px;
-    width: 150px;
-    height: 300px;
-    background: white;
-    position: absolute;
-}
-.viewmore a{
-    color: black;
-    text-decoration: none;
-    margin: auto;
+    margin-bottom: 10px;
     font-size: 20px;
+    font-family: sans-serif;
 
 }
+
 .right{
     display: flex;
     align-items: flex-start;
     width: 300px;
     margin: 0;
-    margin-left: 20px;
+    margin-left: 50px;
 
 }
 .dodatniinfo{
@@ -377,10 +410,13 @@ mounted(){
 
 }
 .dodatniinfo h1{
-    font-size: 20px;
+    font-size: 16px;
+    font-family:sans-serif;
+    font-weight: 600;
 }
 .dodatniinfo p{
     margin-bottom: 15px;
+    font-weight: bold;
 }
 .mreze img{
     width: 30px;
@@ -401,22 +437,22 @@ mounted(){
     border-radius: 2px;
 }
 .drugidio{
-    width: 1010px;
-    height: 400px;
+    width: 1000px;
+    margin-top: 20px;
 }
-.drugidio img{
+.linija{
     object-fit: cover;
-    height: 1px;
+    height: 0px;
     width: 1010px;
     margin: 0;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border: 1px solid lightgray;
 }
 .reviews{
     display: flex;
     flex-direction: column;
-    width: 1005px;
-    height: 300px;
+    width: 900px;
     background: white;
     border-radius: 5px;
     border: 1px solid lightgray;
@@ -427,15 +463,20 @@ mounted(){
 .drugidio a{
     text-decoration: none;
     color: black;
-    font-size: 30px;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: bold;
 }
 .reviews p{
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding: 10px;
+    padding: 40px;
+    padding-top: 0;
+    font-weight: bold;
 }
 .reviews h1{
-    padding: 10px;
+    padding-top: 40px;
+    padding-left: 40px;
+    font-family: sans-serif;
+    font-size: 25px;
 }
 .prvired img{
     height:20px;
@@ -450,6 +491,7 @@ mounted(){
     position: relative;
     border-radius: 20px;
     margin-left: 10px;
+    margin-top: 37px;
 }
 .prvired{
     display: flex;
@@ -492,6 +534,50 @@ mounted(){
     width: 150px;
     border-radius: 10px;
 }
-
-
+.viewmore{
+    width: 200px;
+    height: 300px;
+    display: flex;
+    align-items: center;
+}
+.viewmore a{
+    padding: 36px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
+}
+.card{
+    box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+    cursor: pointer;
+    border-radius: 10px;
+    width: 150px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border: 1px solid lightgray;
+    margin-bottom: 20px;
+}
+.card h2{
+    margin-top: 10px;
+    font-family:sans-serif;
+    font-size: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.card p{
+    font-size: 15px;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  border-radius: 20px;
+}
+::-webkit-scrollbar-thumb {
+  background: lightgray;
+  border-radius: 10px;
+}
 </style>
