@@ -51,6 +51,7 @@
         <div class="search" v-if="search"><img @click="searchF" src="../assets/search.svg" alt="" ><input type="text" v-model="searchText" @keyup.enter="searchBar"></div>
     </div>
     <div class="glavno" v-if="watchlisttv">
+
         <div class="pojedinacno" v-for=" podatak in watchlist" :key="podatak"> 
             <img :src=" slikaurl + podatak.poster_path" alt="" @click="toMovie(podatak.id)">
             <div class="main">
@@ -65,7 +66,7 @@
                     <p>{{ podatak.overview }}</p>
             </div>
             <div class="navigacija" v-if="rated">
-            <div class="jedan" @click="favorite(podatak.id)"><a>F</a></div><p @click="favorite(podatak.id)">Favorite</p>
+            <div class="favorite"  @click="favorite(podatak.id)"><img src="../assets/heart.svg" alt=""></div><p class="favp" @click="favorite(podatak.id)">Favorite</p>
             <div class="jedan" @click="removeWatchlist(podatak.id)"><a>X</a></div><p @click="removeWatchlist(podatak.id)">Remove</p>
         </div>
         </div>
@@ -82,6 +83,24 @@ import axios from 'axios'
 export default {
     components:{Navbar},
     methods:{
+              favorite(id){
+                  if(this.favorites.id = id){
+                      axios.post('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id='+this.sesija,{
+                          
+  "media_type": "movie",
+  "media_id": id,
+  "favorite": false
+
+                      })
+                      axios.post('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id='+this.sesija,{
+                          
+  "media_type": "movie",
+  "media_id": id,
+  "favorite": true
+
+                      })
+                  }
+              },
         toMovie(id){
             this.$router.push({name:'Moviedetails',params:{id:id}})
         },
@@ -106,13 +125,6 @@ export default {
         searchF(){
             this.search = !this.search
         },
-        favorite(id){
-            axios.post('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija,{
-                "media_type": "movie",
-                "media_id": id,
-                "favorite": true
-            })
-        },
         async removeWatchlist(id){
         const deleteWatchlist = await axios.post('https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija,{
                 "media_type": "movie",
@@ -128,6 +140,8 @@ export default {
     },
     data(){
         return{
+            fav:true,
+            favorites:null,
             searchText:null,
             search:false,
             account:null,
@@ -145,16 +159,22 @@ export default {
         }
     },
 mounted(){
+    axios.get('https://api.themoviedb.org/3/account/{account_id}/favorite/movies?api_key=0b5e8ce7494ae54d6c643adf4db40da7&language=en-US&session_id='+this.sesija)
+    .then((response)=>{
+        this.favorites = response
+        console.log(response.data,'favorites')
+    })
     axios.get('https://api.themoviedb.org/3/account?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija)
     .then((response) => {
     this.account = response.data
+    console.log(response,'acc')
     })
 
     axios.get('https://api.themoviedb.org/3/account/{account_id}/watchlist/movies?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija)
     .then((response) => {
     this.watchlist = response.data.results
     this.watchlistlength = response.data
-    console.log(response)
+    console.log(response,'ww')
     })
 
     axios.get('https://api.themoviedb.org/3/account/{account_id}/watchlist/tv?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija)
@@ -357,6 +377,25 @@ mounted(){
     font-family: sans-serif;
     margin: auto;
 }
+.favorite{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    background: #ef47b6;
+    color: white;
+    border-radius: 20px;
+}
+.favorite:active{
+     background: white;
+}
+.favorite img{
+    width: 15px;
+    margin: auto;
+}
 .dva a{
     font-family: sans-serif;
     margin: auto;
@@ -481,5 +520,8 @@ mounted(){
 }
 .firstrow h1{
     font-family: sans-serif;
+}
+.gas{
+    background: black;
 }
 </style>

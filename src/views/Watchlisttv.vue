@@ -15,7 +15,7 @@
 <div class="linija">
 </div>
 <div class="blockdva" v-if="this.sumatv">
-<p>{{ this.sumatv.toFixed(0) }}%</p>
+<p>{{this.sumatv.toFixed(0)}}%</p>
 </div>
 <p>Avarage TV Score</p>
 </div>
@@ -36,11 +36,11 @@
             <h1>My Watchlist</h1>
             <div class="tritacke"></div>
             <div>
-                <router-link :to="{ name: 'Watchlist' }"><a href="#">Movies</a><a v-if="watchlistlength" href="#">{{watchlistlength.results.length}}</a></router-link>
-                <router-link :to="{ name: 'Watchlisttv' }"><a href="#">TV</a><a v-if="watchlisttvlength" href="#">{{watchlisttvlength.results.length}}</a></router-link>
+                <router-link :to="{ name: 'Watchlist' }"><a href="#">Movies</a><a v-if="watchlist" href="#">{{watchlistlength.results.length}}</a></router-link>
+                <router-link :to="{ name: 'Watchlisttv' }"><a href="#">TV</a><a v-if=" watchlisttv" href="#">{{watchlisttvlength.results.length}}</a></router-link>
             </div>
         </div>
-         <div class="right" v-if="!search">
+        <div class="right" v-if="!search">
             <p>Filtered by:</p>
                 <div class="aaa">
                     <a href="#" @click="ascending">Popularity Ascending</a>
@@ -52,25 +52,21 @@
     </div>
     <div class="glavno" v-if="watchlisttv">
         <div class="pojedinacno" v-for=" podatak in watchlisttv" :key="podatak"> 
-            <img :src=" slikaurl + podatak.poster_path" alt="">
+            <img :src=" slikaurl + podatak.poster_path" alt="" @click="toMovie(podatak.id)">
             <div class="main">
             <div class="prvired">
                 <img src="../assets/Rectangle.svg" alt="">
                 <div class="tekst">
-                    <h1>{{ podatak.original_title}}</h1>
-                    <p>{{ podatak.release_date }}</p>
+                    <h1 @click="toMovie(podatak.id)">{{ podatak.name}}</h1>
+                    <p>{{ podatak.first_air_date }}</p>
                 </div>
             </div>
             <div class="opis">
-                <p>{{ podatak.overview }}</p>
+                    <p>{{ podatak.overview }}</p>
             </div>
             <div class="navigacija" v-if="rated">
-            <div class="jedan" @click="favorite(id)"><a>F</a></div><p @click="favorite(podatak.id)">Favorite</p>
+            <div class="favorite"  @click="favorite(podatak.id)"><img src="../assets/heart.svg" alt=""></div><p class="favp" @click="favorite(podatak.id)">Favorite</p>
             <div class="jedan" @click="removeWatchlist(podatak.id)"><a>X</a></div><p @click="removeWatchlist(podatak.id)">Remove</p>
-
-
-
-
         </div>
         </div>
         </div>
@@ -86,37 +82,51 @@ import axios from 'axios'
 export default {
     components:{Navbar},
     methods:{
+        toMovie(id){
+            this.$router.push({name:'Tvdetails',params:{id:id}})
+        },
+      ascending(){
+        this.watchlist.sort((a,b)=>{
+          return a.popularity - b.popularity
+        })
+      },
+      descending(){
+        this.watchlist.sort((a,b)=>{
+          return b.popularity - a.popularity
+        })
+      },
                 searchBar(){
     axios.get('https://api.themoviedb.org/3/search/tv?api_key=0b5e8ce7494ae54d6c643adf4db40da7&query='+this.searchText)
     .then((response) => {
-    this.watchlisttv = response.data.results
-    this.watchlisttvlength = response.data
+    this.watchlist = response.data.results
+    this.watchlistlength = response.data
     console.log(response)
     }) 
         },
         searchF(){
             this.search = !this.search
         },
-      ascending(){
-        this.watchlisttv.sort((a,b)=>{
-          return a.popularity - b.popularity
-        })
-      },
-      descending(){
-        this.watchlisttv.sort((a,b)=>{
-          return b.popularity - a.popularity
-        })
-      },
-        favorite(id){
-            axios.post('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija,{
-                "media_type": "movie",
-                "media_id": id,
-                "favorite": true
-            })
-        },
+              favorite(id){
+                  if(this.favorites.id = id){
+                      axios.post('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id='+this.sesija,{
+                          
+  "media_type": "tv",
+  "media_id": id,
+  "favorite": false
+
+                      })
+                      axios.post('https://api.themoviedb.org/3/account/{account_id}/favorite?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id='+this.sesija,{
+                          
+  "media_type": "tv",
+  "media_id": id,
+  "favorite": true
+
+                      })
+                  }
+              },
         async removeWatchlist(id){
         const deleteWatchlist = await axios.post('https://api.themoviedb.org/3/account/{account_id}/watchlist?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija,{
-                "media_type": "tv",
+                "media_type": "movie",
                 "media_id": id,
                 "watchlist": false
             })
@@ -124,18 +134,21 @@ export default {
         },
     },
     computed:{
-        ...mapGetters(['sesija'])
+        ...mapGetters(['sesija']),
+
     },
     data(){
         return{
-            search:null,
+            fav:true,
+            favorites:[],
+            searchText:null,
+            search:false,
             account:null,
             podaci:null,
             watchlist:null,
-            favorites:null,
+            watchlisttv:null,
             rated:null,
             ratedtv:null,
-            watchlisttv:null,
             watchlistlength:null,
             watchlisttvlength:null,
             suma:null,
@@ -145,15 +158,22 @@ export default {
         }
     },
 mounted(){
+    axios.get('https://api.themoviedb.org/3/account/{account_id}/favorite/tv?api_key=0b5e8ce7494ae54d6c643adf4db40da7&language=en-US&session_id='+this.sesija)
+    .then((response)=>{
+        this.favorites = response
+        console.log(response.data,'favorites')
+    })
     axios.get('https://api.themoviedb.org/3/account?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija)
     .then((response) => {
     this.account = response.data
+    console.log(response,'acc')
     })
 
     axios.get('https://api.themoviedb.org/3/account/{account_id}/watchlist/movies?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija)
     .then((response) => {
     this.watchlist = response.data.results
     this.watchlistlength = response.data
+    console.log(response,'ww')
     })
 
     axios.get('https://api.themoviedb.org/3/account/{account_id}/watchlist/tv?api_key=0b5e8ce7494ae54d6c643adf4db40da7&session_id=' + this.sesija)
@@ -167,8 +187,9 @@ mounted(){
     this.rated = response.data.results
     this.ratedlength = response.data
     for(let i = 0; i < this.ratedlength.results.length; i ++){
-    this.suma += this.ratedlength.results[i].rating / this.ratedlength.results.length *10 
+    this.suma += this.ratedlength.results[i].rating / this.ratedlength.results.length *10
     }
+ 
 
     console.log(this.suma)
     })
@@ -176,7 +197,7 @@ mounted(){
     .then((response) => {
     this.ratedtv = response.data.results
     this.ratedtvlength = response.data
-    for(let i = 0; i < this.ratedtvlength.results.length; i ++){
+    for(let i = 0; i < this.ratedtvlength.results.length; i++){
     this.sumatv += this.ratedtvlength.results[i].rating / this.ratedtvlength.results.length *10 
     }
     })
@@ -216,9 +237,6 @@ mounted(){
     margin: auto;
     display: flex;
     flex-direction: column;
-}
-.firstrow h1{
-    font-family: sans-serif;
 }
 .nav{
     width: 100%;
@@ -271,6 +289,7 @@ mounted(){
     align-items: center;
 }
 .pojedinacno img{
+    cursor: pointer;
     width: 150px;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -288,6 +307,9 @@ mounted(){
     margin: auto;
     border-radius: 10px;
     margin-bottom: 10px;
+}
+.tekst h1{
+    cursor: pointer;
 }
 .main{
     display: flex;
@@ -352,6 +374,25 @@ mounted(){
 }
 .jedan a{
     font-family: sans-serif;
+    margin: auto;
+}
+.favorite{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+    background: #ef47b6;
+    color: white;
+    border-radius: 20px;
+}
+.favorite:active{
+     background: white;
+}
+.favorite img{
+    width: 15px;
     margin: auto;
 }
 .dva a{
@@ -475,5 +516,11 @@ mounted(){
 }
 .right:hover .aaa{
     display: flex;
+}
+.firstrow h1{
+    font-family: sans-serif;
+}
+.gas{
+    background: black;
 }
 </style>
